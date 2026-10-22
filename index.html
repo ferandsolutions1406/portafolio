@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Portafolio de Iván Andrés Fernández Andrade, desarrollador de software full stack (PHP / Laravel). Demos interactivas de sus proyectos.">
+<style>:root{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}html{scroll-behavior:smooth}</style>
+<title>Iván Fernández · Portafolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: proyectos como "consola" — lista de sistemas a la izquierda, escenario con la demo viva a la derecha */
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --sunk:#E9EDF1; --ink:#0D1820; --muted:#5A6A75; --line:#D7DEE4;
+  --accent:#1D54F0; --accent-ink:#FFFFFF; --soft:#E5ECFE;
+  --ok:#0C9B5E; --ok-soft:#DDF4E9; --warn:#B7790A; --warn-soft:#FCF0D6; --bad:#CC3B3B; --bad-soft:#FBE3E3;
+  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A1117; --surface:#111B23; --sunk:#0D161D; --ink:#E4EBF0; --muted:#8C9BA6; --line:#22323D;
+  --accent:#6B93FF; --accent-ink:#06101F; --soft:#16233C;
+  --ok:#3CCB8A; --ok-soft:#10291E; --warn:#F0B54A; --warn-soft:#2B2210; --bad:#F07171; --bad-soft:#2E1515; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1117; --surface:#111B23; --sunk:#0D161D; --ink:#E4EBF0; --muted:#8C9BA6; --line:#22323D;
+  --accent:#6B93FF; --accent-ink:#06101F; --soft:#16233C;
+  --ok:#3CCB8A; --ok-soft:#10291E; --warn:#F0B54A; --warn-soft:#2B2210; --bad:#F07171; --bad-soft:#2E1515; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+a{color:var(--accent)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.label{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
+
+/* top */
+.top{display:flex;justify-content:space-between;align-items:center;padding-block:18px;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:800;font-size:18px}
+.brand span{color:var(--accent)}
+.top nav{display:flex;gap:18px;flex-wrap:wrap}
+.top nav a{color:var(--muted);text-decoration:none;font-weight:500}
+.top nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding-block:40px 36px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end}
+.hero h1{font-size:clamp(34px,5.4vw,62px);line-height:1.02;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{color:var(--muted);max-width:60ch;font-size:16.5px;margin:18px 0 0}
+.hero .who{display:flex;gap:10px;align-items:center;margin-bottom:18px;color:var(--muted);font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px var(--ok-soft)}
+.stats{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.stats div{padding:16px 18px;border-bottom:1px solid var(--line)}
+.stats div:nth-child(odd){border-right:1px solid var(--line)}
+.stats div:nth-last-child(-n+2){border-bottom:0}
+.stats b{display:block;font-family:var(--f-display);font-size:30px;font-weight:800;line-height:1.1}
+.stats span{font-size:13px;color:var(--muted)}
+.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
+.chip{font-family:var(--f-mono);font-size:12px;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);white-space:nowrap}
+
+/* proyectos */
+section{padding-block:36px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.sec-head h2{font-size:clamp(26px,3.2vw,36px);font-weight:800}
+.sec-head p{margin:6px 0 0;color:var(--muted);max-width:62ch}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{border:1px solid var(--line);background:var(--surface);padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--muted)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.console{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
+.plist{display:flex;flex-direction:column;gap:4px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+.pbtn{text-align:left;border:1px solid transparent;background:none;padding:10px 12px;border-radius:8px;cursor:pointer;display:grid;gap:2px}
+.pbtn:hover{background:var(--surface);border-color:var(--line)}
+.pbtn[aria-selected="true"]{background:var(--surface);border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.pbtn b{font-weight:600;font-size:14.5px}
+.pbtn small{color:var(--muted);font-size:12.5px;line-height:1.35}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;min-width:0;overflow:hidden}
+.stage-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);display:grid;gap:10px}
+.stage-head h3{font-size:28px;font-weight:800}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.acc{background:var(--soft);color:var(--accent)}
+.stage-desc{margin:0;color:var(--muted);max-width:75ch}
+.feats{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 18px;font-size:13.5px}
+.feats li{padding-left:14px;position:relative}
+.feats li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+.demo-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 24px;background:var(--sunk);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted);gap:10px;flex-wrap:wrap}
+.demo-bar .mono{font-size:12px}
+.demo{padding:22px 24px 26px;min-width:0}
+
+/* piezas de demo */
+.btn{border:1px solid var(--line);background:var(--surface);padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:500;font-size:13.5px}
+.btn:hover{border-color:var(--muted)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.pri:hover{filter:brightness(1.07)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.panel{border:1px solid var(--line);border-radius:var(--r);padding:14px;min-width:0;background:var(--surface)}
+.panel.sunk{background:var(--sunk)}
+.panel h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.field{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.field input,.field select{border:1px solid var(--line);background:var(--surface);padding:7px 9px;border-radius:7px;color:var(--ink);min-width:0;width:100%}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.kpi{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+.kpi span{font-size:12px;color:var(--muted)}
+.kpi b{display:block;font-family:var(--f-display);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:var(--sunk);font-weight:600}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:13.5px;opacity:0;transition:.25s;pointer-events:none;z-index:20;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.note{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+.empty{color:var(--muted);font-size:13px;padding:10px 0}
+
+/* llamada */
+.call{display:grid;grid-template-columns:240px 1fr;gap:16px}
+.phone{border-radius:22px;background:var(--ink);color:var(--bg);padding:20px 16px;display:grid;gap:14px;align-content:start;text-align:center}
+.phone .num{font-family:var(--f-display);font-size:30px;font-weight:800}
+.wave{display:flex;gap:3px;justify-content:center;align-items:center;height:42px}
+.wave i{width:4px;height:6px;border-radius:2px;background:var(--accent);transition:height .1s}
+.pipe{display:flex;flex-direction:column;gap:5px;text-align:left;font-size:12px}
+.pipe div{padding:5px 8px;border-radius:6px;border:1px solid color-mix(in srgb,var(--bg) 25%,transparent);opacity:.55}
+.pipe div.on{opacity:1;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 22%,transparent)}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:330px;overflow-y:auto;padding:4px 2px}
+.msg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:14px}
+.msg.u{align-self:flex-end;background:var(--soft);color:var(--ink)}
+.msg.a{align-self:flex-start;background:var(--sunk);border:1px solid var(--line)}
+.msg .src{display:block;font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:6px}
+.sugs{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.sugs button{font-size:13px;border:1px dashed var(--accent);color:var(--accent);background:none;border-radius:999px;padding:5px 11px;cursor:pointer}
+
+/* pqrsd */
+.steps{display:flex;gap:0;margin:12px 0}
+.steps div{flex:1;text-align:center;font-size:11.5px;color:var(--muted);position:relative;padding-top:20px}
+.steps div::before{content:"";position:absolute;top:5px;left:50%;width:12px;height:12px;border-radius:50%;background:var(--line);transform:translateX(-50%);z-index:1}
+.steps div::after{content:"";position:absolute;top:10px;left:-50%;width:100%;height:2px;background:var(--line)}
+.steps div:first-child::after{display:none}
+.steps div.done{color:var(--ink);font-weight:600}
+.steps div.done::before,.steps div.done::after{background:var(--accent)}
+.sla{height:6px;border-radius:3px;background:var(--sunk);overflow:hidden}
+.sla i{display:block;height:100%;background:var(--ok)}
+
+/* turnos */
+.tv{background:var(--ink);color:var(--bg);border-radius:var(--r);padding:16px;display:grid;gap:10px;min-height:220px}
+.tv .now{font-family:var(--f-display);font-size:46px;font-weight:800;line-height:1;color:var(--accent)}
+.tv.flash{animation:flash .6s 2}
+@keyframes flash{50%{box-shadow:0 0 0 6px var(--accent)}}
+.qitem{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:13px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.kiosk button{display:block;width:100%;text-align:left;margin-bottom:6px;padding:10px 12px}
+
+/* heatmap */
+.heat{display:grid;grid-template-columns:34px repeat(13,1fr);gap:2px;font-size:10.5px;color:var(--muted)}
+.heat i{aspect-ratio:1.4;border-radius:3px;background:var(--accent);max-width:100%}
+.heat span{display:flex;align-items:center;justify-content:center}
+
+/* cloud */
+.files{display:grid;grid-template-columns:180px 1fr 230px;gap:12px}
+.folder{display:block;width:100%;text-align:left;border:0;background:none;padding:7px 9px;border-radius:7px;cursor:pointer;font-size:13.5px}
+.folder[aria-current="true"]{background:var(--soft);color:var(--accent);font-weight:600}
+.frow{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 10px;border-radius:7px;cursor:pointer;font-size:13.5px;border:1px solid transparent}
+.frow:hover{background:var(--sunk)}
+.frow[aria-selected="true"]{border-color:var(--accent);background:var(--soft)}
+.frow small{color:var(--muted)}
+.presence{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--warn)}
+
+/* aduana */
+.doc{display:grid;grid-template-columns:90px 1fr auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px}
+.doc b{font-family:var(--f-mono)}
+
+/* control */
+.daybar{display:flex;height:26px;border-radius:6px;overflow:hidden;background:var(--sunk);margin:10px 0}
+.daybar i{display:block;height:100%}
+.states{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.states button{padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;font-size:13px}
+.states button[aria-pressed="true"]{border-color:currentColor;box-shadow:inset 0 0 0 1px currentColor}
+.states button b{display:block;font-family:var(--f-mono);font-size:15px;margin-top:2px}
+.clock{font-family:var(--f-display);font-size:38px;font-weight:800;font-variant-numeric:tabular-nums}
+.banner{padding:12px 14px;border-radius:8px;background:var(--warn-soft);color:var(--warn);display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-weight:500}
+
+/* kanban */
+.kanban{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:10px;overflow-x:auto}
+.col{background:var(--sunk);border-radius:8px;padding:8px;min-height:180px}
+.col.over{outline:2px dashed var(--accent)}
+.col h5{margin:0 0 8px;font-size:12px;display:flex;justify-content:space-between;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:8px;margin-bottom:6px;font-size:12.5px;cursor:grab}
+.card b{display:block;font-size:13px}
+.gauge{font-family:var(--f-display);font-size:44px;font-weight:800;text-align:center}
+input[type=range]{width:100%;accent-color:var(--accent)}
+
+/* finance */
+.device{width:150px;height:280px;border-radius:24px;border:6px solid var(--ink);background:var(--sunk);margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:12px;font-size:12px;transition:.3s}
+.device.locked{background:var(--bad-soft);color:var(--bad)}
+.device big{font-size:34px;line-height:1}
+
+/* eventia */
+.invite{border-radius:14px;padding:26px 22px;text-align:center;display:grid;gap:10px;transition:.3s;min-height:320px;align-content:center}
+.invite h4{font-size:30px;margin:0;line-height:1.1}
+.cd{display:flex;gap:10px;justify-content:center}
+.cd div{min-width:52px}
+.cd b{display:block;font-size:24px;font-variant-numeric:tabular-nums}
+.cd small{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+.tpl-boda{background:#F7F1EC;color:#4A3426;font-family:Georgia,"Times New Roman",serif}
+.tpl-boda .ibtn{background:#4A3426;color:#F7F1EC}
+.tpl-infantil{background:#FFE36E;color:#1E3A8A;font-family:var(--f-display)}
+.tpl-infantil .ibtn{background:#1E3A8A;color:#FFE36E}
+.tpl-grado{background:#14213D;color:#F2C14E;font-family:var(--f-display)}
+.tpl-grado .ibtn{background:#F2C14E;color:#14213D}
+.tpl-mini{background:#FFFFFF;color:#111111;border:1px solid #DDDDDD;font-family:var(--f-body)}
+.tpl-mini .ibtn{background:#111111;color:#FFFFFF}
+.ibtn{border:0;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:600;font-family:var(--f-body)}
+
+/* chain */
+.chain{display:flex;flex-direction:column;gap:0}
+.block{border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;display:grid;gap:3px;background:var(--surface)}
+.block.broken{border-color:var(--bad);background:var(--bad-soft)}
+.block.okv{border-color:var(--ok)}
+.block code{font-family:var(--f-mono);font-size:11.5px;word-break:break-all;color:var(--muted)}
+.link{width:2px;height:14px;background:var(--line);margin-left:20px}
+.drop{border:1.5px dashed var(--line);border-radius:var(--r);padding:16px;text-align:center;font-size:13px;color:var(--muted)}
+
+/* sitios + experiencia */
+.sites{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.site{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:18px}
+.site h3{font-size:19px;margin-bottom:6px}
+.site p{margin:0;color:var(--muted);font-size:14px}
+.xp{display:grid;grid-template-columns:200px 1fr;gap:0 28px}
+.xp-item{display:contents}
+.xp-when{padding:16px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+.xp-what{padding:16px 0;border-top:1px solid var(--line)}
+.xp-what h3{font-size:19px}
+.xp-what .co{color:var(--accent);font-weight:600;font-size:14.5px}
+.xp-what p{margin:6px 0 0;color:var(--muted);font-size:14px;max-width:70ch}
+.xp-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:4px;color:var(--muted)}
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:28px}
+.contact h2{font-size:clamp(26px,3.4vw,40px);font-weight:800}
+.cline{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cline:last-child{border-bottom:0}
+.cline span{font-family:var(--f-mono);font-size:14px;user-select:all;word-break:break-all}
+footer{padding-block:28px 40px;color:var(--muted);font-size:13px}
+
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;gap:28px}
+  .console{grid-template-columns:1fr}
+  .plist{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  .pbtn{min-width:200px}
+  .files{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .grid2,.grid3,.call,.sites{grid-template-columns:1fr}
+  .xp{grid-template-columns:1fr}
+  .xp-when{padding-bottom:0}
+  .xp-what{border-top:0;padding-top:4px}
+  .stage-head,.demo{padding-left:16px;padding-right:16px}
+  .demo-bar{padding-left:16px;padding-right:16px}
+  .doc{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Iván Fernández<span>.</span></div>
+    <nav aria-label="Secciones">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <div class="who"><span class="dot" aria-hidden="true"></span>Desarrollador de Software Full Stack · Barranquilla, Colombia</div>
+      <h1>Software a la medida que <em>funciona en producción</em>, de la idea al servidor.</h1>
+      <p>Diseño y construyo plataformas web para entidades públicas y empresas privadas: tránsito y movilidad, atención ciudadana, contact center, logística aduanera, finanzas y gestión documental. Cada proyecto de esta página tiene una demo interactiva con datos de ejemplo, para que veas cómo funciona sin leer código.</p>
+      <div class="stack" aria-label="Tecnologías principales">
+        <span class="chip">PHP 8.4</span><span class="chip">Laravel 13</span><span class="chip">Alpine.js</span><span class="chip">Tailwind v4</span><span class="chip">Hotwired Turbo</span><span class="chip">MySQL · MariaDB · Oracle</span><span class="chip">Flutter</span><span class="chip">Docker · Traefik</span><span class="chip">Git · GitHub</span>
+      </div>
+    </div>
+    <div class="stats" aria-label="Cifras">
+      <div><b class="mono">15+</b><span>sistemas desarrollados</span></div>
+      <div><b class="mono">2.400+</b><span>commits en 2026</span></div>
+      <div><b class="mono">6</b><span>empresas en el sector TI</span></div>
+      <div><b class="mono">8</b><span>sectores atendidos</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>Proyectos con demo</h2>
+        <p>Elige un sistema y pruébalo. Las demos reproducen el flujo real de cada plataforma con datos ficticios.</p>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filtrar por sector"></div>
+    </div>
+    <div class="console">
+      <div class="plist" id="plist" role="tablist" aria-label="Proyectos"></div>
+      <article class="stage" id="stage" role="tabpanel" aria-live="polite">
+        <div class="stage-head">
+          <div class="meta" id="s-meta"></div>
+          <h3 id="s-title"></h3>
+          <p class="stage-desc" id="s-desc"></p>
+          <ul class="feats" id="s-feats"></ul>
+          <div class="stack" id="s-stack" style="margin-top:4px"></div>
+        </div>
+        <div class="demo-bar"><span>Demo interactiva · datos de ejemplo</span><span class="mono" id="s-hint"></span></div>
+        <div class="demo" id="demo"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="sitios">
+  <div class="wrap">
+    <div class="sec-head"><div><h2>Portales web corporativos</h2><p>Sitios administrables construidos en Laravel, con panel propio en lugar de WordPress.</p></div></div>
+    <div class="sites">
+      <div class="site"><span class="label">Tránsito · Sector público</span><h3>Portal institucional de un consorcio de tránsito</h3><p>Migración completa de WordPress a Laravel 13: importación de contenidos y medios, editor de páginas con TipTap, imágenes WebP en tres tamaños generadas al subir, y navegación instantánea con Turbo.</p></div>
+      <div class="site"><span class="label">Logística · SLC</span><h3>Sitio web de SLC</h3><p>Sitio corporativo con panel de administración para la empresa de logística, más la página de mantenimiento estática que se muestra durante los despliegues.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="wrap">
+    <div class="sec-head"><div><h2>Experiencia</h2><p>Del soporte y la infraestructura al desarrollo de software. Esa base es la que me permite llevar un sistema hasta el servidor y mantenerlo vivo.</p></div></div>
+    <div class="xp">
+      <div class="xp-item"><div class="xp-when">2025 – Actualidad<br><span class="xp-tag">Independiente</span></div><div class="xp-what"><h3>Desarrollador Full Stack</h3><div class="co">Proyectos de software a la medida</div><p>Análisis, diseño, desarrollo y despliegue de plataformas para entidades de tránsito, atención ciudadana, contact center, comercio y eventos. Laravel, Flutter, APIs sobre Oracle y Docker en servidores Linux.</p></div></div>
+      <div class="xp-item"><div class="xp-when">Freelance<br><span class="xp-tag">Logística</span></div><div class="xp-what"><h3>Desarrollador Full Stack</h3><div class="co">SLC · Soluciones y Logísticas Confiables</div><p>Sistema de tránsito aduanero internacional (CPIC, MCI, DTAI), nube documental con app de escritorio, control de ingreso y horario de agentes, y sitio web corporativo. Despliegue y respaldos en producción.</p></div></div>
+      <div class="xp-item"><div class="xp-when">2 años · Remoto</div><div class="xp-what"><h3>Desarrollador Web</h3><div class="co">GETS · Grupo Empresarial Tecnológico Simbiótica</div><p>Desarrollo WordPress, administración de servidores VPS, hosting y dominios, migración de sitios, SEO, Google Analytics, copias de seguridad y apps móviles con AppHive.</p></div></div>
+      <div class="xp-item"><div class="xp-when">3 años · Remoto</div><div class="xp-what"><h3>Desarrollador Web</h3><div class="co">Neuro Sabanas SAS</div><p>Desarrollo y diseño web en WordPress, posicionamiento SEO, seguridad de datos y soporte a requerimientos del sector salud.</p></div></div>
+      <div class="xp-item"><div class="xp-when">1 año</div><div class="xp-what"><h3>Desarrollador de Software</h3><div class="co">Zeus Tecnología S.A.</div><p>Desarrollo en ASP.NET y C#, pruebas de aplicaciones web y de escritorio, bases de datos SQL Server y mantenimiento de servidores.</p></div></div>
+      <div class="xp-item"><div class="xp-when">2 años y medio</div><div class="xp-what"><h3>Coordinador de Sistemas</h3><div class="co">Namaste Beach Club</div><p>Infraestructura de redes, desarrollo de aplicativos internos, administración del sitio web, inventario tecnológico y mantenimiento de equipos.</p></div></div>
+      <div class="xp-item"><div class="xp-when">1 año</div><div class="xp-what"><h3>Técnico de Sistemas</h3><div class="co">IPS Delta Cartagena</div><p>Soporte presencial y remoto, redes, administración del sistema CCTV y desarrollo de la página web institucional.</p></div></div>
+      <div class="xp-item"><div class="xp-when">8 meses</div><div class="xp-what"><h3>Técnico de Redes</h3><div class="co">Grupo Heroica</div><p>Soporte de hardware y software, administración de switches Cisco y controladora Meraki.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <span class="label">Contacto</span>
+        <h2>¿Tienes un proceso que hoy vive en Excel o en papel?</h2>
+        <p style="color:var(--muted);margin:10px 0 0">Tecnólogo en Análisis y Desarrollo de Sistemas de Información (SENA). Diplomado en Inteligencia Artificial aplicada a Centros de Relacionamiento con Clientes (Teleacción, 2026). Disponible para proyectos y vinculación como desarrollador full stack.</p>
+      </div>
+      <div>
+        <div class="cline"><span id="c-mail">ivan.fernandez.14@hotmail.com</span><button class="btn" data-copy="c-mail">Copiar</button></div>
+        <div class="cline"><span id="c-tel">+57 324 746 0793</span><button class="btn" data-copy="c-tel">Copiar</button></div>
+        <div class="cline"><span id="c-gh">github.com/ferandsolutions1406</span><a class="btn" href="https://github.com/ferandsolutions1406" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">Abrir</a></div>
+        <div class="cline"><span>Barranquilla, Colombia</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">Iván Andrés Fernández Andrade · Las demos usan datos ficticios y no se conectan a ningún sistema real.</div></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=(s,el=document)=>el.querySelector(s), $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=n=>"$ "+Math.round(n).toLocaleString("es-CO");
+const pad=(n,l=2)=>String(n).padStart(l,"0");
+let tt; function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2400)}
+let cleanups=[]; const every=(fn,ms)=>{const id=setInterval(fn,ms);cleanups.push(()=>clearInterval(id));return id};
+const later=(fn,ms)=>{const id=setTimeout(fn,ms);cleanups.push(()=>clearTimeout(id));return id};
+function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
+
+const SECTORS={all:"Todos",pub:"Sector público",cc:"Contact center",log:"Logística",fin:"Finanzas y comercio"};
+
+const P=[
+/* ---------------- PQRSD ---------------- */
+{id:"pqrsd",name:"NexusTrack PQRSD",tag:"Peticiones, quejas y reclamos con trazabilidad y control de plazos",sector:["pub"],client:"Entidades públicas y privadas",status:["ok","En producción"],
+ desc:"Portal ciudadano para radicar y consultar PQRSD, con gestión interna por dependencias, control de vencimientos de ley y reportes ejecutivos. Multiempresa y con permisos por rol.",
+ feats:["Radicado único y consulta pública del estado","Semáforo de vencimiento por días hábiles","Notificaciones por correo y SMS (Twilio)","Reportes en PDF y Excel"],
+ stack:["Laravel 12","Spatie Permission","Reverb","Twilio","DomPDF","Laravel Excel"],hint:"Radica y avanza estados",
+ render(el){
+  const ST=["Radicada","Asignada","En trámite","Respondida","Cerrada"];
+  const rows=[{n:"PQRSD-2026-004812",t:"Petición",a:"Copia de resolución de tránsito",s:2,d:9},{n:"PQRSD-2026-004815",t:"Reclamo",a:"Cobro duplicado en factura",s:1,d:13},{n:"PQRSD-2026-004820",t:"Queja",a:"Demora en la atención presencial",s:0,d:3}];
+  let sel=0,seq=4821;
+  el.innerHTML=`<div class="grid2"><div class="panel"><h4>Radicar como ciudadano</h4><form id="q-f" style="display:grid;gap:10px">
+   <label class="field">Tipo<select id="q-t"><option>Petición</option><option>Queja</option><option>Reclamo</option><option>Sugerencia</option><option>Denuncia</option></select></label>
+   <label class="field">Asunto<input id="q-a" required maxlength="80" value="Solicitud de certificado de tradición"></label>
+   <button class="btn pri">Radicar</button></form></div>
+   <div class="panel sunk" id="q-det"></div></div>
+   <div class="tbl-wrap" style="margin-top:14px"><table><thead><tr><th>Radicado</th><th>Tipo</th><th>Asunto</th><th>Estado</th><th>Vence en</th></tr></thead><tbody id="q-b"></tbody></table></div>`;
+  const draw=()=>{$("#q-b",el).innerHTML=rows.map((r,i)=>{const left=15-r.d,c=r.s===4?"ok":left<=3?"bad":left<=7?"warn":"ok";
+    return`<tr style="cursor:pointer${i===sel?";background:var(--soft)":""}" data-i="${i}"><td class="mono">${r.n}</td><td>${r.t}</td><td>${esc(r.a)}</td><td><span class="pill ${r.s===4?"ok":"acc"}">${ST[r.s]}</span></td><td><span class="pill ${c}">${r.s===4?"Cerrada":left+" días hábiles"}</span></td></tr>`}).join("");
+   const r=rows[sel],left=15-r.d;
+   $("#q-det",el).innerHTML=`<h4>Seguimiento</h4><div class="mono" style="font-size:17px;font-weight:600">${r.n}</div><div style="color:var(--muted);font-size:13px">${r.t} · ${esc(r.a)}</div>
+    <div class="steps">${ST.map((s,i)=>`<div class="${i<=r.s?"done":""}">${s}</div>`).join("")}</div>
+    <div class="row" style="justify-content:space-between;font-size:12.5px;color:var(--muted)"><span>Plazo legal: 15 días hábiles</span><span>${r.d} usados</span></div>
+    <div class="sla"><i style="width:${Math.min(100,r.d/15*100)}%;background:var(--${r.s===4?"ok":left<=3?"bad":left<=7?"warn":"ok"})"></i></div>
+    <div class="row" style="margin-top:12px"><button class="btn pri" id="q-adv" ${r.s===4?"disabled":""}>Avanzar a “${ST[Math.min(4,r.s+1)]}”</button><button class="btn" id="q-day" ${r.s===4?"disabled":""}>Pasar un día</button></div>`;
+   $("#q-adv",el).onclick=()=>{r.s++;draw();toast("Notificación enviada al ciudadano por correo y SMS")};
+   $("#q-day",el).onclick=()=>{r.d=Math.min(15,r.d+1);draw()}};
+  $("#q-b",el).addEventListener("click",e=>{const tr=e.target.closest("tr");if(tr){sel=+tr.dataset.i;draw()}});
+  $("#q-f",el).addEventListener("submit",e=>{e.preventDefault();rows.unshift({n:"PQRSD-2026-00"+(++seq),t:$("#q-t",el).value,a:$("#q-a",el).value||"Sin asunto",s:0,d:0});sel=0;draw();toast("Radicado "+rows[0].n+" creado")});
+  draw();
+ }},
+/* ---------------- TURNOS ---------------- */
+{id:"turnos",name:"Mov_IT Turno",tag:"Turnos presenciales, citas y pantallas de llamado",sector:["pub"],client:"Puntos de atención al ciudadano",status:["ok","En producción"],
+ desc:"Kiosko de autogestión donde el ciudadano saca su turno, panel por ventanilla para llamar y atender, y pantalla pública que anuncia el llamado con sonido. Incluye agendamiento de citas con cupos y festivos.",
+ feats:["Turnos preferenciales que pasan primero en la cola","Pantalla con video, banners y llamado animado","Citas en línea con cancelación por código","Perfiles con permisos por módulo y reportes"],
+ stack:["Laravel 13","Alpine.js","Tailwind v4","Turbo","SortableJS","QR"],hint:"Saca turnos y llámalos",
+ render(el){
+  const TR={L:"Licencias de conducción",M:"Matrículas y traspasos",C:"Comparendos",P:"Preferencial"};const cnt={L:12,M:7,C:20,P:3};
+  let q=[{c:"L-013",p:0},{c:"C-021",p:0},{c:"M-008",p:0}],hist=[],now=null;
+  el.innerHTML=`<div class="grid3"><div class="panel kiosk"><h4>Kiosko</h4>${Object.entries(TR).map(([k,v])=>`<button class="btn" data-k="${k}">${v}</button>`).join("")}<div id="t-tk" class="note"></div></div>
+   <div class="panel"><h4>Ventanilla</h4><label class="field">Atendiendo en<select id="t-v"><option>Ventanilla 1</option><option>Ventanilla 2</option><option>Ventanilla 3</option></select></label>
+    <div class="row" style="margin:12px 0"><button class="btn pri" id="t-call">Llamar siguiente</button><button class="btn" id="t-rep">Repetir</button></div>
+    <span class="label">En cola</span><div id="t-q"></div></div>
+   <div class="tv" id="t-tv"><span class="label" style="color:inherit;opacity:.65">Pantalla pública</span><div class="now" id="t-now">—</div><div id="t-where" style="font-size:18px;font-weight:600"></div><div id="t-h" style="font-family:var(--f-mono);font-size:13px;opacity:.75"></div></div></div>`;
+  const draw=()=>{$("#t-q",el).innerHTML=q.length?q.map(t=>`<div class="qitem"><span>${t.c}</span><span>${t.p?"Preferencial":""}</span></div>`).join(""):`<div class="empty">Sin turnos en espera</div>`;
+   $("#t-now",el).textContent=now?now.c:"—";$("#t-where",el).textContent=now?now.v:"Esperando llamado";$("#t-h",el).textContent=hist.length?"Anteriores: "+hist.slice(0,3).map(h=>h.c).join(" · "):""};
+  $$("[data-k]",el).forEach(b=>b.onclick=()=>{const k=b.dataset.k;cnt[k]++;const t={c:k+"-"+pad(cnt[k],3),p:k==="P"?1:0};
+   if(t.p){const i=q.findIndex(x=>!x.p);i<0?q.push(t):q.splice(i,0,t)}else q.push(t);$("#t-tk",el).innerHTML=`Tu turno: <b class="mono">${t.c}</b>`;draw()});
+  const flash=()=>{const tv=$("#t-tv",el);tv.classList.remove("flash");void tv.offsetWidth;tv.classList.add("flash")};
+  $("#t-call",el).onclick=()=>{if(!q.length){toast("No hay turnos en espera");return}if(now)hist.unshift(now);now={...q.shift(),v:$("#t-v",el).value};draw();flash()};
+  $("#t-rep",el).onclick=()=>{if(now)flash()};draw();
+ }},
+/* ---------------- CRM ---------------- */
+{id:"crm",name:"Nexus CRM Contact Center",tag:"Gestiones inbound/outbound, campañas, TMO y mapa de calor",sector:["cc"],client:"Operación de contact center",status:["ok","En producción"],
+ desc:"CRM para la operación diaria de un contact center: registro de gestiones por campaña con códigos de actividad, gestiones programadas desde Excel, descansos y TMO, cargas masivas de SMS, correo y llamadas automáticas, y dashboard con mapa de calor.",
+ feats:["Integrador de cargas masivas en segundo plano","Mapa de calor de gestiones por día y hora","Geocodificación de direcciones","Reportes en Excel y PDF"],
+ stack:["Laravel 13","Sanctum","Spatie Permission","PhpSpreadsheet","DomPDF","Playwright"],hint:"Registra una gestión",
+ render(el){
+  const r=rng(7),days=["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"],hours=[...Array(13)].map((_,i)=>7+i);
+  const H=days.map((d,di)=>hours.map(h=>Math.round((di<5?1:.45)*(Math.sin((h-7)/12*Math.PI)*38+r()*14))));
+  let total=H.flat().reduce((a,b)=>a+b,0),contact=0.68,tmo=263,log=[];
+  el.innerHTML=`<div class="kpis"><div class="kpi"><span>Gestiones de la semana</span><b id="c-tot"></b></div><div class="kpi"><span>Contactabilidad</span><b id="c-ct"></b></div><div class="kpi"><span>TMO</span><b id="c-tmo"></b></div></div>
+   <div class="grid2"><div class="panel"><h4>Mapa de calor · gestiones por hora</h4><div class="heat" id="c-heat"></div></div>
+   <div class="panel"><h4>Registrar gestión</h4><div style="display:grid;gap:8px"><label class="field">Campaña<select id="c-camp"><option>Cobranza preventiva</option><option>Servicio al cliente</option><option>Encuesta de satisfacción</option></select></label>
+    <label class="field">Resultado<select id="c-res"><option value="1">Contacto efectivo · compromiso de pago</option><option value="1">Contacto efectivo · información</option><option value="0">No contesta</option><option value="0">Número equivocado</option></select></label>
+    <div class="row"><button class="btn pri" id="c-add">Guardar gestión</button><button class="btn" id="c-int">Cargar 500 SMS</button></div><div class="sla" id="c-bar" hidden><i style="width:0;background:var(--accent)"></i></div><div id="c-log" class="note"></div></div></div></div>`;
+  const max=()=>Math.max(...H.flat());
+  const draw=()=>{const m=max();$("#c-heat",el).innerHTML=`<span></span>`+hours.map(h=>`<span>${h}</span>`).join("")+days.map((d,di)=>`<span>${d}</span>`+H[di].map((v,hi)=>`<i title="${d} ${hours[hi]}:00 · ${v} gestiones" style="opacity:${(.08+v/m*.92).toFixed(2)}"></i>`).join("")).join("");
+   $("#c-tot",el).textContent=total.toLocaleString("es-CO");$("#c-ct",el).textContent=Math.round(contact*100)+"%";$("#c-tmo",el).textContent=pad(tmo/60|0)+":"+pad(Math.round(tmo%60))};
+  $("#c-add",el).onclick=()=>{const ok=+$("#c-res",el).value;H[2][7]+=1;total++;contact=(contact*(total-1)+ok)/total;tmo=(tmo*(total-1)+(ok?310:45))/total;
+   log.unshift($("#c-camp",el).value+" · "+$("#c-res",el).selectedOptions[0].text);$("#c-log",el).innerHTML=log.slice(0,3).map(esc).join("<br>");draw();toast("Gestión registrada · Miércoles 14:00")};
+  $("#c-int",el).onclick=()=>{const b=$("#c-bar",el),i=$("i",b);b.hidden=false;let p=0;$("#c-int",el).disabled=true;const id=every(()=>{p+=4;i.style.width=p+"%";if(p>=100){clearInterval(id);$("#c-int",el).disabled=false;toast("500 SMS encolados · 497 enviados, 3 números inválidos")}},60)};
+  draw();
+ }},
+/* ---------------- CLOUD ---------------- */
+{id:"cloud",name:"Cloud SLC",tag:"Nube documental multiempresa con app de escritorio",sector:["log"],client:"SLC · Soluciones y Logísticas Confiables",status:["ok","En producción"],
+ desc:"Los archivos de la empresa en un solo lugar: carpetas con permisos por persona y grupo, versiones, papelera, enlaces públicos y soporte con tickets. La app de escritorio para Windows y macOS sincroniza una carpeta local y avisa en tiempo real quién tiene abierto cada archivo.",
+ feats:["Permisos por persona y por grupo","Historial de versiones y papelera","Presencia en tiempo real con WebSockets (Reverb)","App de escritorio en Flutter con sincronización"],
+ stack:["Laravel 13","Reverb","Sanctum","Flutter","Spatie Permission","MariaDB"],hint:"Abre un archivo",
+ render(el){
+  const F={"Operaciones":[{n:"Manifiestos_octubre.xlsx",s:"1,2 MB",v:4,o:"Laura M."},{n:"Rutas_frontera.pdf",s:"3,8 MB",v:2}],"Contratos":[{n:"Contrato_transporte_2026.docx",s:"220 KB",v:7,o:"Andrés P."},{n:"Poliza_carga.pdf",s:"640 KB",v:1}],"Talento humano":[{n:"Turnos_noviembre.xlsx",s:"88 KB",v:3}]};
+  let cur="Operaciones",sel=0;
+  el.innerHTML=`<div class="files"><div class="panel sunk"><h4>Carpetas</h4><div id="f-fold"></div><div class="note">Uso: 18,4 GB de 100 GB</div></div><div class="panel"><h4 id="f-path"></h4><div id="f-list"></div></div><div class="panel sunk" id="f-det"></div></div>`;
+  const draw=()=>{$("#f-fold",el).innerHTML=Object.keys(F).map(k=>`<button class="folder" data-f="${k}" aria-current="${k===cur}">${k}</button>`).join("");
+   $("#f-path",el).textContent="Empresa / "+cur;
+   $("#f-list",el).innerHTML=F[cur].map((f,i)=>`<div class="frow" role="option" tabindex="0" data-i="${i}" aria-selected="${i===sel}"><span>${esc(f.n)}<br><small>${f.s} · v${f.v}</small></span>${f.o?`<span class="presence">● ${f.o}</span>`:""}</div>`).join("");
+   const f=F[cur][sel];
+   $("#f-det",el).innerHTML=`<h4>Detalle</h4><b style="font-size:14px;word-break:break-all">${esc(f.n)}</b>
+    <div class="note" style="margin-top:6px">${f.o?`<span class="presence">● Abierto por ${f.o} en la app de escritorio</span>`:"Nadie lo tiene abierto"}</div>
+    <div style="margin-top:12px;font-size:13px">${[...Array(Math.min(f.v,4))].map((_,i)=>`<div class="qitem"><span>v${f.v-i}</span><span>${i===0?"actual":"hace "+(i*3)+" días"}</span></div>`).join("")}</div>
+    <div style="display:grid;gap:6px;margin-top:12px"><button class="btn" id="f-ver">Subir nueva versión</button><button class="btn pri" id="f-link">Crear enlace público</button></div><div id="f-out" class="note"></div>`;
+   $("#f-ver",el).onclick=()=>{f.v++;draw();toast("Versión v"+f.v+" sincronizada con los equipos")};
+   $("#f-link",el).onclick=()=>{const code=Math.random().toString(36).slice(2,10);$("#f-out",el).innerHTML=`<span class="mono" style="word-break:break-all">cloud…/s/${code}</span><br>Vence en 7 días · solo lectura`}};
+  el.addEventListener("click",e=>{const fo=e.target.closest("[data-f]");if(fo){cur=fo.dataset.f;sel=0;draw()}const fr=e.target.closest(".frow");if(fr){sel=+fr.dataset.i;draw()}});
+  draw();
+ }},
+/* ---------------- ADUANA ---------------- */
+{id:"aduana",name:"Sistema Aduanero",tag:"Tránsito aduanero internacional: CPIC, MCI y DTAI",sector:["log"],client:"SLC · Soluciones y Logísticas Confiables",status:["ok","En producción"],
+ desc:"Cada operación de transporte internacional agrupa sus documentos oficiales: la Carta de Porte (CPIC), de uno a diez Manifiestos de Carga (MCI) y, si es tránsito, la Declaración de Tránsito Aduanero (DTAI). Cada documento pasa por validación y su consecutivo oficial se asigna al enviarlo, no al crearlo.",
+ feats:["Flujo Borrador → En validación → Aprobado o Devuelto","Maestros de conductores, vehículos, remolques y lugares","Generación de documentos en PDF","Auditoría y roles propios"],
+ stack:["Laravel 12","Bootstrap 5","Turbo","Snappy / wkhtmltopdf","FPDI","Laravel Excel"],hint:"Envía y aprueba documentos",
+ render(el){
+  const S={B:["Borrador",""],V:["En validación","warn"],A:["Aprobado","ok"],D:["Devuelto","bad"]};
+  const seq={CPIC:1287,MCI:4410,DTAI:932};let docs=[{t:"CPIC",s:"B"},{t:"MCI",s:"B"}],transit=false;
+  el.innerHTML=`<div class="panel sunk" style="margin-bottom:12px"><div class="row" style="justify-content:space-between"><div><span class="label">Operación</span><div class="mono" style="font-size:16px;font-weight:600">OP-2026-0318 · Barranquilla → Quito</div><div class="note" style="margin:2px 0 0">Tractocamión TKR-482 · Remolque R-55190 · Contenedor MSCU 7712045</div></div>
+   <div class="row"><button class="btn" id="a-mci">+ MCI</button><label class="row" style="font-size:13.5px"><input type="checkbox" id="a-tr"> Es tránsito (DTAI)</label></div></div></div><div id="a-docs"></div>`;
+  const draw=()=>{const list=docs.filter(d=>d.t!=="DTAI"||transit);
+   $("#a-docs",el).innerHTML=list.map(d=>{const i=docs.indexOf(d);return`<div class="doc"><b>${d.t}</b><div><span class="pill ${S[d.s][1]}">${S[d.s][0]}</span> <span class="mono" style="font-size:13px;margin-left:6px">${d.n?d.t+"-"+pad(d.n,6):"sin consecutivo"}</span></div><div class="row">${
+    d.s==="B"||d.s==="D"?`<button class="btn" data-a="V" data-i="${i}">Enviar a validación</button>`:d.s==="V"?`<button class="btn pri" data-a="A" data-i="${i}">Aprobar</button><button class="btn" data-a="D" data-i="${i}">Devolver</button>`:`<button class="btn" data-a="P" data-i="${i}">Ver PDF</button>`}</div></div>`}).join("");
+   $("#a-mci",el).disabled=docs.filter(d=>d.t==="MCI").length>=10};
+  el.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(!b)return;const d=docs[b.dataset.i],a=b.dataset.a;
+   if(a==="P"){toast("PDF de "+d.t+"-"+pad(d.n,6)+" generado");return}
+   if(a==="V"&&!d.n){d.n=++seq[d.t];toast("Consecutivo asignado: "+d.t+"-"+pad(d.n,6))}d.s=a;draw()});
+  $("#a-mci",el).onclick=()=>{docs.push({t:"MCI",s:"B"});draw()};
+  $("#a-tr",el).onchange=e=>{transit=e.target.checked;if(transit&&!docs.some(d=>d.t==="DTAI"))docs.push({t:"DTAI",s:"B"});draw()};draw();
+ }},
+/* ---------------- CONTROL INGRESO ---------------- */
+{id:"control",name:"Nexus Control de Ingreso",tag:"Estados de agentes, malla horaria y horas extra",sector:["cc","log"],client:"SLC · Soluciones y Logísticas Confiables",status:["ok","En producción"],
+ desc:"Cada agente marca su estado durante la jornada (disponible, descanso, almuerzo, capacitación) y el supervisor ve en vivo quién está conectado. Al llegar la hora de salida de la malla, el sistema cierra el día o pide confirmar horas extra preautorizadas.",
+ feats:["Tiempo por estado en vivo con WebSockets","Cierre automático a la hora de la malla","Horas extra preautorizadas por el supervisor","App de escritorio y API para la detección de señal"],
+ stack:["Laravel","Reverb","Sanctum","Laravel Excel","DomPDF","Alpine.js"],hint:"Cambia de estado",
+ render(el){
+  const ST=[["Disponible","var(--ok)"],["Descanso","var(--warn)"],["Almuerzo","var(--accent)"],["Capacitación","var(--muted)"]];
+  let min=16*60+20,cur=0,acc=[312,25,60,0],seg=[[0,312],[1,15],[0,40],[2,60],[0,95],[1,10]],over=false,closed=false;
+  el.innerHTML=`<div class="grid2"><div><div class="row" style="justify-content:space-between"><div><span class="label">Hora simulada</span><div class="clock" id="k-c"></div></div><div style="text-align:right"><span class="label">Malla</span><div class="mono">07:00 – 17:00</div></div></div>
+   <div class="daybar" id="k-bar"></div><div class="states" id="k-s"></div></div>
+   <div class="panel sunk"><h4>Agente</h4><div style="font-weight:600">Mariana Torres · Campaña Servicio al cliente</div><div class="note" id="k-st"></div><div id="k-ban" style="margin-top:12px"></div><p class="note">Cada segundo real equivale a 2 minutos de jornada.</p></div></div>`;
+  const fmt=m=>pad(m/60|0)+":"+pad(m%60);
+  const draw=()=>{$("#k-c",el).textContent=fmt(min);const tot=seg.reduce((a,s)=>a+s[1],0);
+   $("#k-bar",el).innerHTML=seg.map(s=>`<i style="width:${s[1]/tot*100}%;background:${ST[s[0]][1]}" title="${ST[s[0]][0]} ${s[1]} min"></i>`).join("");
+   $("#k-s",el).innerHTML=ST.map((s,i)=>`<button data-s="${i}" aria-pressed="${i===cur&&!closed}" style="color:${s[1]}" ${closed?"disabled":""}><span style="color:var(--ink)">${s[0]}</span><b>${fmt(acc[i])}</b></button>`).join("");
+   $("#k-st",el).textContent=closed?"Jornada cerrada a las "+fmt(min):"Estado actual: "+ST[cur][0]+(over?" · horas extra":"");
+   $("#k-ban",el).innerHTML=min>=17*60&&!over&&!closed?`<div class="banner"><span>Llegó la hora de salida (17:00)</span><span class="row"><button class="btn" id="k-more">Sigo trabajando</button><button class="btn pri" id="k-end">Cerrar día</button></span></div>`:over&&!closed?`<span class="pill warn">Horas extra preautorizadas por supervisor</span>`:closed?`<span class="pill ok">Reporte del día generado</span>`:""};
+  every(()=>{if(closed||(min>=17*60&&!over))return;min+=2;acc[cur]+=2;seg[seg.length-1][1]+=2;draw()},1000);
+  el.addEventListener("click",e=>{const b=e.target.closest("[data-s]");if(b&&!closed){cur=+b.dataset.s;seg.push([cur,0]);draw()}
+   if(e.target.id==="k-more"){over=true;draw()}if(e.target.id==="k-end"){closed=true;draw()}});draw();
+ }},
+/* ---------------- METRICAS ---------------- */
+{id:"metricas",name:"Nexus Intelligence",tag:"KPIs comerciales, experiencia del cliente y operación",sector:["cc"],client:"Contact center y BPO",status:["ok","En producción"],
+ desc:"Plataforma de inteligencia de negocio que centraliza los indicadores de Comercial, Experiencia del Cliente, Operaciones e Infraestructura, con pipeline comercial en tablero Kanban, métricas de la central telefónica y salida a Power BI.",
+ feats:["Pipeline comercial con arrastrar y soltar","NPS, CSAT y CES con semáforo por umbral","Métricas de agentes y líneas de la central","Auditoría de actividad por usuario"],
+ stack:["Laravel","Livewire","ApexCharts","Spatie Permission","Laravel Excel","Power BI"],hint:"Arrastra tarjetas y mueve el NPS",
+ render(el){
+  const stages=["Prospecto","Propuesta","Negociación","Ganado"];
+  let deals=[{n:"Clínica del Norte",v:48,s:0},{n:"Transportes Caribe",v:120,s:0},{n:"Gobernación (licitación)",v:310,s:1},{n:"Retail Andino",v:75,s:2},{n:"Aseguradora Sol",v:96,s:3}];
+  el.innerHTML=`<div class="kpis"><div class="kpi"><span>Pipeline abierto</span><b id="m-pipe"></b></div><div class="kpi"><span>Ganado</span><b id="m-won"></b></div><div class="kpi"><span>NPS</span><b id="m-nps"></b></div></div>
+   <div class="kanban" id="m-k"></div>
+   <div class="panel" style="margin-top:14px"><h4>Encuesta NPS del mes · 400 respuestas</h4><div class="grid3">
+    <label class="field">Promotores (9–10): <b id="m-pv"></b><input type="range" id="m-p" min="0" max="400" value="212"></label>
+    <label class="field">Detractores (0–6): <b id="m-dv"></b><input type="range" id="m-d" min="0" max="400" value="64"></label>
+    <div><span class="label">Resultado</span><div class="gauge" id="m-g"></div></div></div></div>`;
+  const draw=()=>{$("#m-k",el).innerHTML=stages.map((s,si)=>{const ds=deals.filter(d=>d.s===si);return`<div class="col" data-s="${si}"><h5><span>${s}</span><span class="mono">${ds.reduce((a,d)=>a+d.v,0)} M</span></h5>${ds.map(d=>`<div class="card" draggable="true" data-i="${deals.indexOf(d)}"><b>${esc(d.n)}</b>$ ${d.v} M</div>`).join("")}</div>`}).join("");
+   $("#m-pipe",el).textContent="$ "+deals.filter(d=>d.s<3).reduce((a,d)=>a+d.v,0)+" M";$("#m-won",el).textContent="$ "+deals.filter(d=>d.s===3).reduce((a,d)=>a+d.v,0)+" M"};
+  const nps=()=>{let p=+$("#m-p",el).value,d=+$("#m-d",el).value;if(p+d>400){d=400-p;$("#m-d",el).value=d}const n=Math.round((p-d)/4);
+   $("#m-pv",el).textContent=p;$("#m-dv",el).textContent=d;const g=$("#m-g",el);g.textContent=(n>0?"+":"")+n;g.style.color=n>=50?"var(--ok)":n>=0?"var(--warn)":"var(--bad)";$("#m-nps",el).textContent=(n>0?"+":"")+n};
+  let drag=null;
+  el.addEventListener("dragstart",e=>{const c=e.target.closest(".card");if(c){drag=+c.dataset.i;e.dataTransfer.setData("text/plain",c.dataset.i)}});
+  el.addEventListener("dragover",e=>{const c=e.target.closest(".col");if(c){e.preventDefault();c.classList.add("over")}});
+  el.addEventListener("dragleave",e=>{const c=e.target.closest(".col");if(c)c.classList.remove("over")});
+  el.addEventListener("drop",e=>{const c=e.target.closest(".col");if(c&&drag!==null){e.preventDefault();deals[drag].s=+c.dataset.s;drag=null;draw();toast("Etapa actualizada")}});
+  el.addEventListener("click",e=>{const c=e.target.closest(".card");if(c){const d=deals[c.dataset.i];d.s=(d.s+1)%4;draw()}});
+  $("#m-p",el).oninput=nps;$("#m-d",el).oninput=nps;draw();nps();
+  el.insertAdjacentHTML("beforeend",`<p class="note">En móvil, toca una tarjeta para moverla a la siguiente etapa.</p>`);
+ }},
+/* ---------------- TABLERO ---------------- */
+{id:"tablero",name:"Tablero Logístico",tag:"Traslados de cuenta, planillas y control de placas",sector:["pub","log"],client:"Organismo de tránsito",status:["ok","En producción"],
+ desc:"Tablero para el área de logística de un organismo de tránsito: traslados de cuenta de vehículos entre ciudades, planillas de mensajería, impresión de placas por lotes y auditoría de cada movimiento, con filtros y exportación a Excel.",
+ feats:["Filtros por estado, origen y placa","Historial de contacto y resultado por traslado","Lotes de impresión y auditoría de placas","Festivos y horarios de recorrido"],
+ stack:["Laravel","Tailwind v4","PhpSpreadsheet","MySQL 8","Docker"],hint:"Filtra y cambia estados",
+ render(el){
+  const E=["Recibido","En revisión","Enviado","Entregado"],cls=["","warn","acc","ok"];
+  const rows=[["KMR614","Cali","Palmira",0],["JHT228","Bogotá","Palmira",1],["DFW903","Palmira","Medellín",2],["GTX551","Pereira","Palmira",3],["BNQ172","Palmira","Cali",1],["WPL840","Buga","Palmira",0],["ZXC305","Palmira","Tuluá",2]].map(r=>({p:r[0],o:r[1],d:r[2],e:r[3]}));
+  let f=-1,qq="";
+  el.innerHTML=`<div class="row" style="justify-content:space-between;margin-bottom:12px"><div class="filters" id="l-f"></div><div class="row"><input id="l-q" placeholder="Buscar placa" aria-label="Buscar placa" style="border:1px solid var(--line);border-radius:7px;padding:6px 9px;background:var(--surface);width:140px"><button class="btn" id="l-x">Exportar Excel</button></div></div>
+   <div class="tbl-wrap"><table><thead><tr><th>Placa</th><th>Origen</th><th>Destino</th><th>Estado</th><th></th></tr></thead><tbody id="l-b"></tbody></table></div>`;
+  const draw=()=>{$("#l-f",el).innerHTML=[["Todos",-1],...E.map((e,i)=>[e,i])].map(([n,i])=>`<button aria-pressed="${f===i}" data-f="${i}">${n} <span class="mono">${i<0?rows.length:rows.filter(r=>r.e===i).length}</span></button>`).join("");
+   const list=rows.filter(r=>(f<0||r.e===f)&&r.p.includes(qq.toUpperCase()));
+   $("#l-b",el).innerHTML=list.length?list.map(r=>`<tr><td class="mono">${r.p}</td><td>${r.o}</td><td>${r.d}</td><td><span class="pill ${cls[r.e]}">${E[r.e]}</span></td><td>${r.e<3?`<button class="btn" data-p="${r.p}">Pasar a ${E[r.e+1]}</button>`:""}</td></tr>`).join(""):`<tr><td colspan="5" class="empty">Ningún traslado coincide con el filtro</td></tr>`};
+  el.addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(b){f=+b.dataset.f;draw()}const p=e.target.closest("[data-p]");if(p){const r=rows.find(x=>x.p===p.dataset.p);r.e++;draw();toast(r.p+" → "+E[r.e]+" · registrado en auditoría")}});
+  $("#l-q",el).oninput=e=>{qq=e.target.value;draw()};$("#l-x",el).onclick=()=>toast("Reporte de traslados generado en Excel (demo)");draw();
+ }},
+/* ---------------- FINANCE ---------------- */
+{id:"finance",name:"Nexus Finance",tag:"Venta de celulares a crédito con bloqueo administrativo",sector:["fin"],client:"Comercios de telefonía",status:["warn","MVP"],
+ desc:"Plataforma para comercios que venden celulares a crédito: registra clientes y equipos, genera el plan de cuotas, controla la mora y, cuando corresponde, restringe el equipo Android a distancia. El desbloqueo se hace con un código que emite el servidor.",
+ feats:["Plan de cuotas automático","Cálculo de mora y recordatorios","Comandos al equipo vía Firebase Cloud Messaging","Multiempresa con auditoría de operaciones"],
+ stack:["Laravel","Firebase FCM","Kotlin / Android","Flutter","Chart.js","Sanctum"],hint:"Simula pagos y mora",
+ render(el){
+  let paid=0,late=false,code=null;
+  el.innerHTML=`<div class="grid2"><div><div class="grid2" style="gap:10px"><label class="field">Precio del equipo<input id="n-p" type="number" value="1800000" step="50000" min="100000"></label><label class="field">Cuota inicial<input id="n-i" type="number" value="400000" step="50000" min="0"></label>
+   <label class="field">Número de cuotas<select id="n-n"><option>3</option><option selected>6</option><option>9</option><option>12</option></select></label><label class="field">Interés mensual %<input id="n-r" type="number" value="2.1" step="0.1" min="0"></label></div>
+   <div class="tbl-wrap" style="margin-top:12px;max-height:230px;overflow-y:auto"><table><thead><tr><th>#</th><th>Vence</th><th style="text-align:right">Valor</th><th>Estado</th></tr></thead><tbody id="n-b"></tbody></table></div>
+   <div class="row" style="margin-top:10px"><button class="btn pri" id="n-pay">Registrar pago</button><button class="btn" id="n-late">Simular mora</button></div></div>
+   <div class="panel sunk"><h4>Equipo · Samsung A35 · IMEI 35…4821</h4><div class="device" id="n-d"></div><div id="n-c" style="margin-top:12px;text-align:center"></div></div></div>`;
+  const plan=()=>{const P=Math.max(0,+$("#n-p",el).value-+$("#n-i",el).value),n=+$("#n-n",el).value,i=+$("#n-r",el).value/100;const c=i?P*i/(1-Math.pow(1+i,-n)):P/n;return{n,c}};
+  const draw=()=>{const{n,c}=plan();paid=Math.min(paid,n);const m=["nov","dic","ene","feb","mar","abr","may","jun","jul","ago","sep","oct"];
+   $("#n-b",el).innerHTML=[...Array(n)].map((_,k)=>{const st=k<paid?["Pagada","ok"]:k===paid&&late?["En mora","bad"]:["Pendiente",""];return`<tr><td class="mono">${k+1}</td><td>05-${m[k%12]}</td><td class="num">${money(c)}</td><td><span class="pill ${st[1]}">${st[0]}</span></td></tr>`}).join("");
+   const d=$("#n-d",el),lock=late&&!code;d.classList.toggle("locked",lock);
+   d.innerHTML=paid>=n?`<big>✓</big><b>Equipo liberado</b><span>Crédito pagado</span>`:lock?`<big>🔒</big><b>Equipo restringido</b><span>Cuota ${paid+1} vencida. Comuníquese con el comercio.</span>`:`<big>${pad(paid)}/${n}</big><b>Uso normal</b><span>Próxima cuota: ${money(c)}</span>`;
+   $("#n-c",el).innerHTML=late&&!code?`<button class="btn" id="n-u">Generar código de desbloqueo</button>`:code?`<span class="label">Código temporal</span><div class="mono" style="font-size:24px;font-weight:600">${code}</div><div class="note" style="margin:0">Válido por 24 horas</div>`:"";
+   $("#n-pay",el).disabled=paid>=n;$("#n-late",el).disabled=late||paid>=n};
+  $$("#n-p,#n-i,#n-n,#n-r",el).forEach(i=>i.oninput=draw);
+  $("#n-pay",el).onclick=()=>{paid++;late=false;code=null;draw();toast("Pago registrado · recibo enviado al cliente")};
+  $("#n-late",el).onclick=()=>{late=true;code=null;draw();toast("Comando de restricción enviado al equipo")};
+  el.addEventListener("click",e=>{if(e.target.id==="n-u"){code=String(Math.floor(100000+Math.random()*900000));draw()}});draw();
+ }},
+/* ---------------- EVENTIA ---------------- */
+{id:"eventia",name:"Nexus Eventia",tag:"Invitaciones digitales con confirmación de asistencia",sector:["fin"],client:"Organizadores de eventos",status:["ok","En producción"],
+ desc:"El organizador crea el evento, elige uno de 13 diseños, registra a sus invitados con sus cupos y comparte por WhatsApp un enlace personal. Cada invitado confirma, pide cupos adicionales o descarga su invitación con QR, y todo queda en el panel con estadísticas.",
+ feats:["13 diseños temáticos con vista previa en dispositivos","Cuenta regresiva, mapa y evento para el calendario","Importación de invitados desde Excel","Validación de cupos adicionales y QR"],
+ stack:["Laravel","Tailwind v4","QR","DomPDF","PhpSpreadsheet"],hint:"Cambia el diseño y confirma",
+ render(el){
+  const T={boda:["Boda elegante","Camila & Sebastián","Celebremos nuestro matrimonio"],infantil:["Cumpleaños infantil","Los 6 de Mateo","¡Fiesta de dinosaurios!"],grado:["Graduación","Promoción 2026","Ceremonia de grado"],mini:["Minimalista","Lanzamiento","Presentación de producto"]};
+  let t="boda",stats={c:84,n:12,p:31},ans=null;const target=new Date("2026-12-12T19:00:00-05:00");
+  el.innerHTML=`<div class="grid2"><div><div class="filters" id="e-t" style="margin-bottom:12px"></div><div class="invite" id="e-c"></div></div>
+   <div class="panel sunk"><h4>Panel del organizador</h4><div class="kpis"><div class="kpi"><span>Confirmados</span><b id="e-1"></b></div><div class="kpi"><span>No asistirán</span><b id="e-2"></b></div><div class="kpi"><span>Pendientes</span><b id="e-3"></b></div></div>
+   <div class="sla" style="height:10px"><i id="e-bar" style="background:var(--ok)"></i></div><p class="note">127 invitados · 162 cupos asignados · Enlace compartido por WhatsApp</p></div></div>`;
+  const cd=()=>{const ms=Math.max(0,target-new Date()),d=ms/864e5|0,h=ms/36e5%24|0,m=ms/6e4%60|0,s=ms/1e3%60|0;const c=$("#e-cd",el);if(c)c.innerHTML=[[d,"días"],[h,"horas"],[m,"min"],[s,"seg"]].map(([v,l])=>`<div><b>${pad(v)}</b><small>${l}</small></div>`).join("")};
+  const draw=()=>{$("#e-t",el).innerHTML=Object.entries(T).map(([k,v])=>`<button aria-pressed="${k===t}" data-t="${k}">${v[0]}</button>`).join("");
+   const v=T[t],c=$("#e-c",el);c.className="invite tpl-"+t;
+   c.innerHTML=`<small style="letter-spacing:.14em;text-transform:uppercase;opacity:.75">${v[2]}</small><h4>${v[1]}</h4><div>Sábado 12 de diciembre · 7:00 p. m.</div><div class="cd" id="e-cd"></div>
+    <div style="font-size:13px;opacity:.85">Querida familia Rodríguez · 4 cupos asignados</div>${ans?`<b>${ans}</b>`:`<div class="row" style="justify-content:center"><button class="ibtn" data-r="si">Confirmo asistencia</button><button class="ibtn" data-r="no" style="opacity:.75">No podré asistir</button></div>`}`;
+   cd();$("#e-1",el).textContent=stats.c;$("#e-2",el).textContent=stats.n;$("#e-3",el).textContent=stats.p;$("#e-bar",el).style.width=(stats.c/127*100)+"%"};
+  el.addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(b){t=b.dataset.t;draw()}const r=e.target.closest("[data-r]");if(r&&!ans){stats.p--;r.dataset.r==="si"?(stats.c++,ans="¡Gracias! Te esperamos. Tu QR de ingreso está listo."):(stats.n++,ans="Gracias por avisar. Lamentamos que no puedas acompañarnos.");draw()}});
+  every(cd,1000);draw();
+ }},
+/* ---------------- ARCHIVO ---------------- */
+{id:"archivo",name:"Mov_IT Patios y Grúas",tag:"Expediente digital con huella SHA-256 y auditoría encadenada",sector:["pub"],client:"Organismo de tránsito",status:["acc","En desarrollo"],
+ desc:"Expediente digital de tránsito: los documentos se cargan e indexan por placa e identificación, se guardan inmutables con su huella SHA-256 y cada acción queda en una bitácora encadenada, donde cada registro incluye la huella del anterior. Si alguien altera un registro, la cadena lo delata.",
+ feats:["Indexación por placa e identificación","Almacenamiento inmutable compatible con S3","Visor seguro con marca de agua","Auditoría encadenada verificable"],
+ stack:["Laravel 13","SHA-256","Flysystem S3","Spatie Permission","QR","PhpSpreadsheet"],hint:"Carga un archivo real de tu equipo",
+ render(el){
+  const enc=new TextEncoder();const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+  const sha=async data=>{if(crypto&&crypto.subtle)return hex(await crypto.subtle.digest("SHA-256",typeof data==="string"?enc.encode(data):data));let h=0;const s=typeof data==="string"?data:String(data.byteLength);for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return h.toString(16).padStart(64,"0")};
+  let chain=[];
+  el.innerHTML=`<div class="grid2"><div class="panel"><h4>Cargar documento</h4><div style="display:grid;gap:10px"><label class="field">Placa<input id="h-p" value="KMR614" maxlength="7"></label>
+   <label class="drop" for="h-f">Elige cualquier archivo de tu equipo. Se calcula su huella aquí mismo en el navegador; no se sube a ningún lado.<input type="file" id="h-f" style="display:block;margin:10px auto 0;max-width:100%"></label>
+   <button class="btn" id="h-s">Usar acta de ejemplo</button></div></div>
+   <div class="panel sunk"><h4 class="row" style="justify-content:space-between;margin-bottom:10px"><span>Bitácora encadenada</span></h4><div class="row" style="margin-bottom:10px"><button class="btn pri" id="h-v">Verificar cadena</button><button class="btn" id="h-t">Alterar un registro</button></div><div class="chain" id="h-c"></div></div></div>`;
+  const draw=(bad=-1,checked=false)=>{$("#h-c",el).innerHTML=chain.length?chain.map((b,i)=>`${i?'<div class="link"></div>':""}<div class="block ${checked?(bad>=0&&i>=bad?"broken":"okv"):""}"><b>#${i+1} · ${esc(b.name)} · ${esc(b.placa)}</b><code>archivo ${b.file.slice(0,24)}…</code><code>anterior ${b.prev.slice(0,24)}…</code><code>registro ${b.hash.slice(0,24)}…</code></div>`).join(""):`<div class="empty">Aún no hay registros. Carga un documento.</div>`;
+   $("#h-t",el).disabled=chain.length<2};
+  const add=async(name,data)=>{const file=await sha(data),prev=chain.length?chain[chain.length-1].hash:"0".repeat(64),placa=($("#h-p",el).value||"SINPLACA").toUpperCase(),at=new Date().toISOString();
+   const hash=await sha(prev+file+placa+name+at);chain.push({name,placa,file,prev,hash,at});draw();toast("Huella registrada: "+file.slice(0,12)+"…")};
+  $("#h-f",el).onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>add(f.name,r.result);r.readAsArrayBuffer(f)};
+  let n=0;$("#h-s",el).onclick=()=>add("acta_inventario_"+(++n)+".pdf","Acta de inventario de vehículo inmovilizado #"+n+" "+Date.now());
+  $("#h-v",el).onclick=async()=>{let bad=-1;for(let i=0;i<chain.length;i++){const b=chain[i],prev=i?chain[i-1].hash:"0".repeat(64);if(b.prev!==prev||await sha(b.prev+b.file+b.placa+b.name+b.at)!==b.hash){bad=i;break}}
+   draw(bad,true);toast(chain.length?(bad<0?"Cadena íntegra: "+chain.length+" registros verificados":"Cadena rota en el registro #"+(bad+1)):"No hay registros")};
+  $("#h-t",el).onclick=()=>{const i=Math.floor(chain.length/2);chain[i].placa="XXX999";draw();toast("Se cambió la placa del registro #"+(i+1)+". Verifica la cadena.")};
+  (async()=>{$("#h-p",el).value="KMR614";await add("acta_inventario_0.pdf","Acta inicial");$("#h-p",el).value="JHT228";await add("foto_ingreso_patio.jpg","Foto de ingreso");$("#h-p",el).value="KMR614"})();
+ }},
+/* ---------------- PORTAL PAGOS ---------------- */
+{id:"pagos",name:"Portal de Pagos de Multas",tag:"Consulta y pago en línea de comparendos",sector:["pub"],client:"Organismo de tránsito",status:["ok","En producción"],
+ desc:"Zona virtual donde el ciudadano consulta su estado de cuenta por cédula o placa y paga sus comparendos en línea. Se conecta a una API propia que lee el sistema de tránsito en Oracle. Corregí en producción una falla que mostraba como pagadas multas que no lo estaban.",
+ feats:["Consulta por documento o placa","API REST de solo lectura sobre Oracle (OCI8)","Selección de comparendos y liquidación","Recibo con referencia de pago"],
+ stack:["Laravel 10","Oracle OCI8","API REST","Livewire Tables","Guzzle"],hint:"Prueba con la placa ABC123",
+ render(el){
+  const DB={ABC123:[{c:"76520001000045821",f:"2026-08-14",i:"C02 · Estacionar en sitio prohibido",v:604100},{c:"76520001000046107",f:"2026-09-30",i:"C29 · Exceso de velocidad",v:1208200},{c:"76520001000039982",f:"2025-11-02",i:"D12 · Sin revisión técnico-mecánica",v:1208200}]};
+  let res=null,sel=new Set(),paid=new Set();
+  el.innerHTML=`<form id="g-f" class="row" style="margin-bottom:14px"><label class="field" style="flex:1;min-width:180px">Placa o número de documento<input id="g-q" value="ABC123"></label><button class="btn pri" style="align-self:end">Consultar</button></form><div id="g-r"></div>`;
+  const draw=()=>{const box=$("#g-r",el);if(!res){box.innerHTML="";return}if(!res.length){box.innerHTML=`<div class="empty">No hay comparendos pendientes para esa consulta. Prueba con ABC123.</div>`;return}
+   const tot=res.filter(r=>sel.has(r.c)).reduce((a,r)=>a+r.v,0);
+   box.innerHTML=`<div class="tbl-wrap"><table><thead><tr><th></th><th>Comparendo</th><th>Fecha</th><th>Infracción</th><th style="text-align:right">Valor</th></tr></thead><tbody>${res.map(r=>`<tr><td>${paid.has(r.c)?`<span class="pill ok">Pagado</span>`:`<input type="checkbox" aria-label="Seleccionar ${r.c}" data-c="${r.c}" ${sel.has(r.c)?"checked":""}>`}</td><td class="mono">${r.c}</td><td>${r.f}</td><td>${r.i}</td><td class="num">${money(r.v)}</td></tr>`).join("")}</tbody></table></div>
+    <div class="row" style="justify-content:space-between;margin-top:12px"><div><span class="label">Total a pagar</span><div class="mono" style="font-size:22px;font-weight:600">${money(tot)}</div></div><button class="btn pri" id="g-pay" ${tot?"":"disabled"}>Pagar seleccionados (simulado)</button></div><div id="g-rec"></div>`};
+  $("#g-f",el).addEventListener("submit",e=>{e.preventDefault();res=DB[$("#g-q",el).value.trim().toUpperCase()]||[];sel=new Set(res.filter(r=>!paid.has(r.c)).map(r=>r.c));draw()});
+  el.addEventListener("change",e=>{const c=e.target.dataset.c;if(c){e.target.checked?sel.add(c):sel.delete(c);draw()}});
+  el.addEventListener("click",e=>{if(e.target.id==="g-pay"){const tot=res.filter(r=>sel.has(r.c)).reduce((a,r)=>a+r.v,0);sel.forEach(c=>paid.add(c));const n=sel.size;sel.clear();draw();
+   $("#g-rec",el).innerHTML=`<div class="panel sunk" style="margin-top:12px"><h4>Recibo</h4><div class="mono">REF ${Date.now().toString().slice(-10)} · ${n} comparendo(s) · ${money(tot)}</div><div class="note" style="margin:4px 0 0">Aprobado. El estado de cuenta se actualiza al confirmar el pago.</div></div>`}});
+  $("#g-f",el).requestSubmit();
+ }}
+];
+
+/* -------- ensamblado -------- */
+let current=null,filter="all";
+function select(id,focus){const p=P.find(x=>x.id===id)||P[0];cleanups.forEach(f=>f());cleanups=[];current=p.id;
+ $$(".pbtn").forEach(b=>b.setAttribute("aria-selected",b.dataset.id===p.id));
+ $("#s-meta").innerHTML=`<span class="pill ${p.status[0]}">${p.status[1]}</span><span>${esc(p.client)}</span>`;
+ $("#s-title").textContent=p.name;$("#s-desc").textContent=p.desc;$("#s-hint").textContent=p.hint;
+ $("#s-feats").innerHTML=p.feats.map(f=>`<li>${esc(f)}</li>`).join("");$("#s-stack").innerHTML=p.stack.map(s=>`<span class="chip">${esc(s)}</span>`).join("");
+ const d=$("#demo"),n=d.cloneNode(false);d.replaceWith(n);p.render(n);
+ try{history.replaceState(null,"","#"+p.id)}catch(e){}
+ if(focus&&innerWidth<980)$("#stage").scrollIntoView({behavior:"smooth",block:"start"});}
+function list(){const ps=P.filter(p=>filter==="all"||p.sector.includes(filter));
+ $("#plist").innerHTML=ps.map(p=>`<button class="pbtn" role="tab" data-id="${p.id}" aria-selected="${p.id===current}"><b>${esc(p.name)}</b><small>${esc(p.tag)}</small></button>`).join("");
+ $("#filters").innerHTML=Object.entries(SECTORS).map(([k,v])=>`<button data-s="${k}" aria-pressed="${k===filter}">${v}</button>`).join("");
+ if(!ps.some(p=>p.id===current))select(ps[0].id)}
+$("#plist").addEventListener("click",e=>{const b=e.target.closest(".pbtn");if(b)select(b.dataset.id,true)});
+$("#filters").addEventListener("click",e=>{const b=e.target.closest("[data-s]");if(b){filter=b.dataset.s;list()}});
+$$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const t=document.getElementById(b.dataset.copy);const txt=t.textContent;
+ const sel=()=>{const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Texto seleccionado, cópialo con Ctrl+C")};
+ try{navigator.clipboard.writeText(txt).then(()=>toast("Copiado: "+txt),sel)}catch(e){sel()}}));
+const start=(location.hash||"").slice(1);current=P.some(p=>p.id===start)?start:"pqrsd";list();select(current);
+</script>
+
+</body>
+</html>
