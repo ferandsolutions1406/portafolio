@@ -3,96 +3,210 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Portafolio de Iván Andrés Fernández Andrade, desarrollador de software full stack (PHP / Laravel). Demos interactivas de sus proyectos.">
-<style>:root{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}html{scroll-behavior:smooth}</style>
 <title>Iván Fernández · Portafolio</title>
+<meta name="description" content="Iván Andrés Fernández Andrade, desarrollador de software full stack (PHP / Laravel) en Barranquilla. Sistemas en producción con capturas reales y demos interactivas.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230B1424'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-size='14' font-weight='800' fill='%235B8CFF' text-anchor='middle'%3EIF%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
-/* Layout: proyectos como "consola" — lista de sistemas a la izquierda, escenario con la demo viva a la derecha */
+/* Layout: cada sistema es una fila "ficha + visor" (texto a la izquierda, capturas/demos a la derecha) sobre una cuadrícula de puntos */
 :root{
-  --bg:#F2F4F6; --surface:#FFFFFF; --sunk:#E9EDF1; --ink:#0D1820; --muted:#5A6A75; --line:#D7DEE4;
-  --accent:#1D54F0; --accent-ink:#FFFFFF; --soft:#E5ECFE;
-  --ok:#0C9B5E; --ok-soft:#DDF4E9; --warn:#B7790A; --warn-soft:#FCF0D6; --bad:#CC3B3B; --bad-soft:#FBE3E3;
-  --f-display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
-  --f-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
-  --r:10px;
+  --bg:#F3F5F9; --surface:#FFFFFF; --sunk:#EDF1F6; --ink:#0B1424; --ink-2:#2A3648; --muted:#5D6B7D; --line:#DCE3EB;
+  --accent:#2357F5; --accent-ink:#FFFFFF; --soft:#E6EDFF; --glow:#7FA2FF;
+  --ok:#0B9A5D; --ok-soft:#DCF4E8; --warn:#AE7409; --warn-soft:#FBF0D5; --bad:#C93838; --bad-soft:#FBE3E3;
+  --dot:rgba(11,20,36,.07);
+  --f-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:12px; --shadow:0 1px 2px rgba(11,20,36,.05),0 12px 32px -12px rgba(11,20,36,.18);
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0A1117; --surface:#111B23; --sunk:#0D161D; --ink:#E4EBF0; --muted:#8C9BA6; --line:#22323D;
-  --accent:#6B93FF; --accent-ink:#06101F; --soft:#16233C;
-  --ok:#3CCB8A; --ok-soft:#10291E; --warn:#F0B54A; --warn-soft:#2B2210; --bad:#F07171; --bad-soft:#2E1515; color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#080E18; --surface:#0F1826; --sunk:#0B131F; --ink:#E7EDF5; --ink-2:#C2CCD9; --muted:#8B9AAD; --line:#1E2B3D;
+  --accent:#6E95FF; --accent-ink:#06101F; --soft:#14223D; --glow:#3D63D6;
+  --ok:#3CCB8A; --ok-soft:#0F2A1F; --warn:#F0B54A; --warn-soft:#2B2210; --bad:#F07171; --bad-soft:#2E1515;
+  --dot:rgba(231,237,245,.06); --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.7); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0A1117; --surface:#111B23; --sunk:#0D161D; --ink:#E4EBF0; --muted:#8C9BA6; --line:#22323D;
-  --accent:#6B93FF; --accent-ink:#06101F; --soft:#16233C;
-  --ok:#3CCB8A; --ok-soft:#10291E; --warn:#F0B54A; --warn-soft:#2B2210; --bad:#F07171; --bad-soft:#2E1515; color-scheme:dark}
+  --bg:#080E18; --surface:#0F1826; --sunk:#0B131F; --ink:#E7EDF5; --ink-2:#C2CCD9; --muted:#8B9AAD; --line:#1E2B3D;
+  --accent:#6E95FF; --accent-ink:#06101F; --soft:#14223D; --glow:#3D63D6;
+  --ok:#3CCB8A; --ok-soft:#0F2A1F; --warn:#F0B54A; --warn-soft:#2B2210; --bad:#F07171; --bad-soft:#2E1515;
+  --dot:rgba(231,237,245,.06); --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.7); color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
-.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15.5px;line-height:1.6;
+  background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px;background-attachment:fixed}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
 a{color:var(--accent)}
 button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500}
 .label{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:600}
 
-/* top */
-.top{display:flex;justify-content:space-between;align-items:center;padding-block:18px;gap:12px;flex-wrap:wrap}
-.brand{font-family:var(--f-display);font-weight:800;font-size:18px}
-.brand span{color:var(--accent)}
-.top nav{display:flex;gap:18px;flex-wrap:wrap}
-.top nav a{color:var(--muted);text-decoration:none;font-weight:500}
-.top nav a:hover{color:var(--ink)}
+/* nav */
+.nav{position:sticky;top:0;z-index:30;backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);
+  background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:var(--ink);font-family:var(--f-display);font-size:17px;white-space:nowrap}
+.mark{width:32px;height:32px;border-radius:9px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--f-mono);font-size:12.5px;font-weight:600;letter-spacing:.02em}
+.nav nav{display:flex;align-items:center;gap:22px}
+.nav nav a{color:var(--muted);text-decoration:none;font-weight:500;font-size:14.5px}
+.nav nav a:hover{color:var(--ink)}
+.icon-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center;color:var(--ink)}
+.icon-btn svg{width:17px;height:17px}
 
 /* hero */
-.hero{padding-block:40px 36px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:end}
-.hero h1{font-size:clamp(34px,5.4vw,62px);line-height:1.02;font-weight:800}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero p{color:var(--muted);max-width:60ch;font-size:16.5px;margin:18px 0 0}
-.hero .who{display:flex;gap:10px;align-items:center;margin-bottom:18px;color:var(--muted);font-weight:500}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px var(--ok-soft)}
-.stats{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
-.stats div{padding:16px 18px;border-bottom:1px solid var(--line)}
-.stats div:nth-child(odd){border-right:1px solid var(--line)}
-.stats div:nth-last-child(-n+2){border-bottom:0}
-.stats b{display:block;font-family:var(--f-display);font-size:30px;font-weight:800;line-height:1.1}
-.stats span{font-size:13px;color:var(--muted)}
+.hero{padding-block:64px 40px;display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:start}
+.hero h1{font-size:clamp(42px,6.4vw,78px);line-height:.98;font-weight:800;margin-top:14px}
+.hero h1 span{display:block;color:var(--muted);font-weight:700}
+.lede{font-size:18px;color:var(--ink-2);max-width:58ch;margin:22px 0 0}
+.lede b{color:var(--ink)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.btn-l{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:11px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.btn-l:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-l.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn-l svg{width:16px;height:16px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:34px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.stats div{padding:16px 16px 14px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--f-display);font-size:28px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span{font-size:12.5px;color:var(--muted);line-height:1.35;display:block;margin-top:4px}
+
+.git{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow);min-width:0}
+.git-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.git h3{font-size:19px}
+.git p{color:var(--muted);font-size:13.5px;margin:6px 0 14px}
+.heat-wrap{overflow-x:auto;padding-bottom:4px}
+.heat-g{display:grid;grid-auto-flow:column;grid-template-rows:14px repeat(7,11px);gap:3px;width:max-content}
+.heat-g i{width:11px;height:11px;border-radius:3px;background:var(--sunk);border:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.heat-g i[data-l="1"]{background:color-mix(in srgb,var(--accent) 28%,var(--sunk));border-color:transparent}
+.heat-g i[data-l="2"]{background:color-mix(in srgb,var(--accent) 52%,var(--sunk));border-color:transparent}
+.heat-g i[data-l="3"]{background:color-mix(in srgb,var(--accent) 78%,var(--sunk));border-color:transparent}
+.heat-g i[data-l="4"]{background:var(--accent);border-color:transparent}
+.heat-g em{font-style:normal;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);white-space:nowrap;height:14px;line-height:14px;width:11px;overflow:visible}
+.heat-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:12.5px;color:var(--muted);gap:10px;flex-wrap:wrap}
+.legend{display:flex;align-items:center;gap:4px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.repos{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+.chip{font-family:var(--f-mono);font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--muted);white-space:nowrap}
+.chip b{color:var(--ink);font-weight:600}
+
+.jump{display:flex;flex-wrap:wrap;gap:8px;padding-block:8px 8px}
+.jump a{font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);text-decoration:none;font-weight:500;transition:.15s}
+.jump a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* secciones */
+section{padding-block:56px}
+.sec-head{max-width:760px;margin-bottom:8px}
+.sec-head h2{font-size:clamp(32px,4.2vw,48px);font-weight:800;margin-top:10px}
+.sec-head p{color:var(--muted);font-size:16.5px;margin:12px 0 0}
+.note-strip{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:12px 14px;border-radius:11px;background:var(--soft);color:var(--ink-2);font-size:14px;max-width:760px}
+.note-strip svg{flex:none;width:18px;height:18px;color:var(--accent);margin-top:2px}
+
+/* proyecto */
+.proj{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px;padding-block:52px;border-top:1px solid var(--line)}
+.proj:first-of-type{border-top:0}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{font-family:var(--f-mono);font-size:11.5px;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted);font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.ok::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge.acc{background:var(--soft);color:var(--accent)}
+.badge.warn{background:var(--warn-soft);color:var(--warn)}
+.proj h3{font-size:clamp(28px,3vw,38px);font-weight:800;margin-top:14px;line-height:1.05}
+.client{color:var(--muted);font-size:14.5px;margin-top:6px}
+.proj .desc{font-size:16.5px;color:var(--ink-2);margin:18px 0 0}
+.points{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.points li{position:relative;padding-left:24px;color:var(--ink-2);font-size:15px}
+.points li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--f-mono)}
 .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
-.chip{font-family:var(--f-mono);font-size:12px;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);white-space:nowrap}
+.viewer{min-width:0}
+.tabs{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:var(--sunk);border:1px solid var(--line)}
+.tabs button{border:0;background:none;padding:7px 14px;border-radius:9px;cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(11,20,36,.12)}
+.vmeta{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin:14px 0 10px;display:flex;align-items:center;gap:8px}
+.vmeta::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.frame{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow);position:relative}
+.chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.chrome i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.chrome span{margin-left:10px;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:2px 10px;flex:1;max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chrome button{margin-left:auto;border:0;background:none;color:var(--muted);font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:5px;font-weight:500}
+.shot{position:relative;background:var(--sunk);aspect-ratio:16/10;display:flex;align-items:flex-start;justify-content:center;overflow:hidden;cursor:zoom-in}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.shot.tall img{width:auto;height:100%;object-fit:contain}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 92%,transparent);display:grid;place-items:center;cursor:pointer;color:var(--ink);box-shadow:var(--shadow);opacity:0;transition:opacity .2s}
+.frame:hover .arrow,.arrow:focus-visible{opacity:1}
+.arrow.l{left:10px}.arrow.r{right:10px}
+.arrow svg{width:16px;height:16px}
+.cap{display:flex;gap:10px;margin-top:12px;font-size:14px;color:var(--ink-2);min-height:44px}
+.cap b{font-family:var(--f-mono);font-size:12.5px;color:var(--ink);flex:none;padding-top:1px}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;margin-top:4px;scroll-snap-type:x mandatory}
+.thumbs button{flex:none;width:108px;aspect-ratio:16/10;border-radius:8px;border:2px solid transparent;padding:0;overflow:hidden;cursor:pointer;background:var(--sunk);scroll-snap-align:start;opacity:.72;transition:.15s}
+.thumbs button img{width:100%;height:100%;object-fit:cover;object-position:top}
+.thumbs button[aria-current="true"]{border-color:var(--accent);opacity:1}
+.thumbs button:hover{opacity:1}
+.demo-box{border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.demo-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;background:var(--sunk);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted);gap:10px;flex-wrap:wrap}
+.demo{padding:20px 18px 22px;min-width:0}
+.demo-hint{font-size:13.5px;color:var(--muted);margin:12px 0 0}
 
-/* proyectos */
-section{padding-block:36px}
-.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
-.sec-head h2{font-size:clamp(26px,3.2vw,36px);font-weight:800}
-.sec-head p{margin:6px 0 0;color:var(--muted);max-width:62ch}
-.filters{display:flex;gap:6px;flex-wrap:wrap}
-.filters button{border:1px solid var(--line);background:var(--surface);padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--muted)}
-.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.console{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
-.plist{display:flex;flex-direction:column;gap:4px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
-.pbtn{text-align:left;border:1px solid transparent;background:none;padding:10px 12px;border-radius:8px;cursor:pointer;display:grid;gap:2px}
-.pbtn:hover{background:var(--surface);border-color:var(--line)}
-.pbtn[aria-selected="true"]{background:var(--surface);border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
-.pbtn b{font-weight:600;font-size:14.5px}
-.pbtn small{color:var(--muted);font-size:12.5px;line-height:1.35}
-.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;min-width:0;overflow:hidden}
-.stage-head{padding:22px 24px 18px;border-bottom:1px solid var(--line);display:grid;gap:10px}
-.stage-head h3{font-size:28px;font-weight:800}
-.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted)}
-.pill.ok{background:var(--ok-soft);color:var(--ok)}
-.pill.warn{background:var(--warn-soft);color:var(--warn)}
-.pill.bad{background:var(--bad-soft);color:var(--bad)}
-.pill.acc{background:var(--soft);color:var(--accent)}
-.stage-desc{margin:0;color:var(--muted);max-width:75ch}
-.feats{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 18px;font-size:13.5px}
-.feats li{padding-left:14px;position:relative}
-.feats li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--accent)}
-.demo-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 24px;background:var(--sunk);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted);gap:10px;flex-wrap:wrap}
-.demo-bar .mono{font-size:12px}
-.demo{padding:22px 24px 26px;min-width:0}
+/* portales */
+.portals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:30px}
+.portal{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.portal .pimg{aspect-ratio:16/10;overflow:hidden;background:var(--sunk);cursor:zoom-in;border-bottom:1px solid var(--line)}
+.portal .pimg img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .4s}
+.portal:hover .pimg img{transform:scale(1.02)}
+.portal .pbody{padding:20px 22px 22px;display:grid;gap:8px}
+.portal h3{font-size:22px}
+.portal p{margin:0;color:var(--ink-2);font-size:15px}
+.portal .more{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.portal .more button{width:72px;aspect-ratio:16/10;border-radius:7px;overflow:hidden;border:1px solid var(--line);padding:0;cursor:zoom-in;background:var(--sunk)}
+.portal .more img{width:100%;height:100%;object-fit:cover;object-position:top}
 
+/* experiencia / formación */
+.xp{display:grid;grid-template-columns:220px 1fr;margin-top:28px}
+.xp-row{display:contents}
+.xp-when{padding:20px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+.xp-when .tag{display:inline-block;margin-top:6px;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.xp-what{padding:20px 0;border-top:1px solid var(--line)}
+.xp-what h3{font-size:21px}
+.xp-what .co{color:var(--accent);font-weight:600;font-size:15px;margin-top:2px}
+.xp-what p{margin:8px 0 0;color:var(--ink-2);font-size:15px;max-width:72ch}
+.xp-sub{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:30px 0 6px;grid-column:1/-1}
+.edu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px}
+.edu div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.edu b{display:block;font-family:var(--f-display);font-size:17px;line-height:1.25}
+.edu span{display:block;color:var(--muted);font-size:13.5px;margin-top:6px}
+.edu em{font-style:normal;display:inline-block;margin-top:10px;font-family:var(--f-mono);font-size:11.5px;color:var(--accent)}
+.stackgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+.stackgrid div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.stackgrid h4{font-size:15px;margin-bottom:10px}
+.stackgrid .stack{margin-top:0}
+
+.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;background:var(--ink);color:var(--bg);border-radius:22px;padding:44px}
+.contact h2{font-size:clamp(30px,3.8vw,46px);font-weight:800;line-height:1.08}
+.contact p{color:color-mix(in srgb,var(--bg) 70%,var(--ink));margin:14px 0 0;font-size:16px}
+.cline{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid color-mix(in srgb,var(--bg) 18%,var(--ink));flex-wrap:wrap}
+.cline:last-child{border-bottom:0}
+.cline span{font-family:var(--f-mono);font-size:14.5px;word-break:break-all}
+.cline button,.cline a{border:1px solid color-mix(in srgb,var(--bg) 30%,var(--ink));background:none;color:var(--bg);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;text-decoration:none;font-weight:500}
+footer{padding-block:30px 46px;color:var(--muted);font-size:13.5px}
+
+/* lightbox */
+dialog.lb{border:0;padding:0;background:transparent;max-width:min(1500px,96vw);width:96vw;max-height:94vh;overflow:visible}
+dialog.lb::backdrop{background:rgba(5,9,16,.86);backdrop-filter:blur(4px)}
+.lb-in{display:flex;flex-direction:column;gap:12px;align-items:center}
+.lb-in img{max-height:82vh;max-width:100%;width:auto;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,.5);background:#fff}
+.lb-cap{color:#E7EDF5;font-size:14.5px;text-align:center;max-width:90ch}
+.lb-cap b{font-family:var(--f-mono);margin-right:8px}
+.lb-btn{position:fixed;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(15,24,38,.7);color:#fff;display:grid;place-items:center;cursor:pointer}
+.lb-btn svg{width:18px;height:18px}
+.lb-x{top:18px;right:18px}.lb-l{left:18px;top:50%;transform:translateY(-50%)}.lb-r{right:18px;top:50%;transform:translateY(-50%)}
+
+/* piezas de las demos */
 /* piezas de demo */
 .btn{border:1px solid var(--line);background:var(--surface);padding:7px 12px;border-radius:8px;cursor:pointer;font-weight:500;font-size:13.5px}
 .btn:hover{border-color:var(--muted)}
@@ -228,124 +342,145 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .link{width:2px;height:14px;background:var(--line);margin-left:20px}
 .drop{border:1.5px dashed var(--line);border-radius:var(--r);padding:16px;text-align:center;font-size:13px;color:var(--muted)}
 
-/* sitios + experiencia */
-.sites{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.site{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:18px}
-.site h3{font-size:19px;margin-bottom:6px}
-.site p{margin:0;color:var(--muted);font-size:14px}
-.xp{display:grid;grid-template-columns:200px 1fr;gap:0 28px}
-.xp-item{display:contents}
-.xp-when{padding:16px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
-.xp-what{padding:16px 0;border-top:1px solid var(--line)}
-.xp-what h3{font-size:19px}
-.xp-what .co{color:var(--accent);font-weight:600;font-size:14.5px}
-.xp-what p{margin:6px 0 0;color:var(--muted);font-size:14px;max-width:70ch}
-.xp-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:4px;color:var(--muted)}
-.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:28px}
-.contact h2{font-size:clamp(26px,3.4vw,40px);font-weight:800}
-.cline{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.cline:last-child{border-bottom:0}
-.cline span{font-family:var(--f-mono);font-size:14px;user-select:all;word-break:break-all}
-footer{padding-block:28px 40px;color:var(--muted);font-size:13px}
 
-@media (max-width:980px){
-  .hero{grid-template-columns:1fr;gap:28px}
-  .console{grid-template-columns:1fr}
-  .plist{position:static;flex-direction:row;overflow-x:auto;padding-bottom:6px}
-  .pbtn{min-width:200px}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:9px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:60;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.reveal{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}}
+@media (max-width:1020px){
+  .hero{grid-template-columns:1fr;gap:34px;padding-top:44px}
+  .proj{grid-template-columns:1fr;gap:28px}
+  .contact{grid-template-columns:1fr;padding:30px}
+  .edu{grid-template-columns:repeat(2,minmax(0,1fr))}
   .files{grid-template-columns:1fr}
-  .contact{grid-template-columns:1fr}
 }
-@media (max-width:680px){
-  .grid2,.grid3,.call,.sites{grid-template-columns:1fr}
+@media (max-width:720px){
+  .nav nav a.hide-s{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats div:nth-child(2){border-right:0}
+  .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .portals,.stackgrid{grid-template-columns:1fr}
   .xp{grid-template-columns:1fr}
   .xp-when{padding-bottom:0}
   .xp-what{border-top:0;padding-top:4px}
-  .stage-head,.demo{padding-left:16px;padding-right:16px}
-  .demo-bar{padding-left:16px;padding-right:16px}
+  .grid2,.grid3,.call{grid-template-columns:1fr}
   .doc{grid-template-columns:1fr}
+  .arrow{opacity:1}
+  .lb-l,.lb-r{top:auto;bottom:18px;transform:none}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:480px){.edu{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
-
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="brand">Iván Fernández<span>.</span></div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><span class="mark">IF</span>Iván Fernández</a>
     <nav aria-label="Secciones">
       <a href="#proyectos">Proyectos</a>
-      <a href="#experiencia">Experiencia</a>
+      <a class="hide-s" href="#experiencia">Experiencia</a>
+      <a class="hide-s" href="#stack">Stack</a>
       <a href="#contacto">Contacto</a>
+      <button class="icon-btn" id="theme" aria-label="Cambiar tema claro u oscuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     </nav>
-  </header>
+  </div>
+</header>
 
+<main id="inicio">
+<div class="wrap">
   <div class="hero">
-    <div>
-      <div class="who"><span class="dot" aria-hidden="true"></span>Desarrollador de Software Full Stack · Barranquilla, Colombia</div>
-      <h1>Software a la medida que <em>funciona en producción</em>, de la idea al servidor.</h1>
-      <p>Diseño y construyo plataformas web para entidades públicas y empresas privadas: tránsito y movilidad, atención ciudadana, contact center, logística aduanera, finanzas y gestión documental. Cada proyecto de esta página tiene una demo interactiva con datos de ejemplo, para que veas cómo funciona sin leer código.</p>
-      <div class="stack" aria-label="Tecnologías principales">
-        <span class="chip">PHP 8.4</span><span class="chip">Laravel 13</span><span class="chip">Alpine.js</span><span class="chip">Tailwind v4</span><span class="chip">Hotwired Turbo</span><span class="chip">MySQL · MariaDB · Oracle</span><span class="chip">Flutter</span><span class="chip">Docker · Traefik</span><span class="chip">Git · GitHub</span>
+    <div class="reveal">
+      <div class="eyebrow">Desarrollador Full Stack · Barranquilla, Colombia</div>
+      <h1>Iván Andrés<span>Fernández Andrade</span></h1>
+      <p class="lede">Diseño, construyo y pongo en producción <b>sistemas que la gente usa todos los días</b>: la nube documental de una empresa de logística, el tránsito aduanero internacional, el control de ingreso de un contact center, la atención de peticiones ciudadanas y el portal de un organismo de tránsito. Trabajo en <b>PHP y Laravel</b>, de la base de datos al servidor.</p>
+      <div class="cta">
+        <a class="btn-l pri" href="#proyectos">Ver proyectos</a>
+        <a class="btn-l" href="https://github.com/ferandsolutions1406" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+        <a class="btn-l" href="#contacto">Contacto</a>
+      </div>
+      <div class="stats">
+        <div><b>1.568</b><span>commits propios en 2026</span></div>
+        <div><b>14</b><span>sistemas desarrollados</span></div>
+        <div><b>17</b><span>repositorios activos</span></div>
+        <div><b>6</b><span>empresas en el sector TI</span></div>
       </div>
     </div>
-    <div class="stats" aria-label="Cifras">
-      <div><b class="mono">15+</b><span>sistemas desarrollados</span></div>
-      <div><b class="mono">2.400+</b><span>commits en 2026</span></div>
-      <div><b class="mono">6</b><span>empresas en el sector TI</span></div>
-      <div><b class="mono">8</b><span>sectores atendidos</span></div>
-    </div>
+    <aside class="git reveal" aria-label="Actividad en Git">
+      <div class="git-head"><h3>Actividad en Git, 2026</h3><span class="eyebrow" id="git-range"></span></div>
+      <p>Cada cuadro es un día. Son mis commits reales en los repositorios de estos proyectos.</p>
+      <div class="heat-wrap"><div class="heat-g" id="heat"></div></div>
+      <div class="heat-foot"><span id="heat-tip">Pasa el cursor por un día</span><span class="legend">menos <i style="background:var(--sunk)"></i><i style="background:color-mix(in srgb,var(--accent) 28%,var(--sunk))"></i><i style="background:color-mix(in srgb,var(--accent) 52%,var(--sunk))"></i><i style="background:color-mix(in srgb,var(--accent) 78%,var(--sunk))"></i><i style="background:var(--accent)"></i> más</span></div>
+      <div class="repos" id="repos"></div>
+    </aside>
   </div>
+  <div class="jump" id="jump" aria-label="Ir a un proyecto"></div>
 </div>
 
 <section id="proyectos">
   <div class="wrap">
     <div class="sec-head">
-      <div>
-        <h2>Proyectos con demo</h2>
-        <p>Elige un sistema y pruébalo. Las demos reproducen el flujo real de cada plataforma con datos ficticios.</p>
-      </div>
-      <div class="filters" id="filters" role="group" aria-label="Filtrar por sector"></div>
+      <div class="eyebrow">Proyectos</div>
+      <h2>Lo que he construido</h2>
+      <p>Cada sistema se levantó aparte, con su propia base de datos llena de datos de prueba, para mostrar cómo es realmente por dentro sin exponer información de ciudadanos, clientes ni código. Toca una captura para verla en grande o abre la demo interactiva.</p>
     </div>
-    <div class="console">
-      <div class="plist" id="plist" role="tablist" aria-label="Proyectos"></div>
-      <article class="stage" id="stage" role="tabpanel" aria-live="polite">
-        <div class="stage-head">
-          <div class="meta" id="s-meta"></div>
-          <h3 id="s-title"></h3>
-          <p class="stage-desc" id="s-desc"></p>
-          <ul class="feats" id="s-feats"></ul>
-          <div class="stack" id="s-stack" style="margin-top:4px"></div>
-        </div>
-        <div class="demo-bar"><span>Demo interactiva · datos de ejemplo</span><span class="mono" id="s-hint"></span></div>
-        <div class="demo" id="demo"></div>
-      </article>
-    </div>
+    <div id="projects"></div>
   </div>
 </section>
 
-<section id="sitios">
+<section id="portales">
   <div class="wrap">
-    <div class="sec-head"><div><h2>Portales web corporativos</h2><p>Sitios administrables construidos en Laravel, con panel propio en lugar de WordPress.</p></div></div>
-    <div class="sites">
-      <div class="site"><span class="label">Tránsito · Sector público</span><h3>Portal institucional de un consorcio de tránsito</h3><p>Migración completa de WordPress a Laravel 13: importación de contenidos y medios, editor de páginas con TipTap, imágenes WebP en tres tamaños generadas al subir, y navegación instantánea con Turbo.</p></div>
-      <div class="site"><span class="label">Logística · SLC</span><h3>Sitio web de SLC</h3><p>Sitio corporativo con panel de administración para la empresa de logística, más la página de mantenimiento estática que se muestra durante los despliegues.</p></div>
+    <div class="sec-head">
+      <div class="eyebrow">Portales web</div>
+      <h2>Sitios institucionales y corporativos</h2>
+      <p>Portales administrables construidos en Laravel, con panel propio en lugar de WordPress.</p>
+    </div>
+    <div class="portals" id="portals"></div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Stack</div>
+      <h2>Con qué trabajo</h2>
+      <p>Las herramientas que uso a diario para llevar un sistema desde el requerimiento hasta el servidor.</p>
+    </div>
+    <div class="stackgrid">
+      <div><h4>Backend</h4><div class="stack"><span class="chip">PHP 8.4</span><span class="chip">Laravel 10–13</span><span class="chip">API REST</span><span class="chip">Sanctum</span><span class="chip">Reverb</span><span class="chip">Colas</span><span class="chip">C# / ASP.NET</span><span class="chip">Python</span></div></div>
+      <div><h4>Frontend</h4><div class="stack"><span class="chip">Blade</span><span class="chip">Alpine.js</span><span class="chip">Tailwind v4</span><span class="chip">Bootstrap 5</span><span class="chip">Turbo</span><span class="chip">Livewire</span><span class="chip">Vite</span><span class="chip">Chart.js</span></div></div>
+      <div><h4>Datos</h4><div class="stack"><span class="chip">MySQL</span><span class="chip">MariaDB</span><span class="chip">Oracle (OCI8)</span><span class="chip">SQL Server</span><span class="chip">Excel masivo</span><span class="chip">PDF</span></div></div>
+      <div><h4>Escritorio y móvil</h4><div class="stack"><span class="chip">Flutter</span><span class="chip">Windows</span><span class="chip">macOS</span><span class="chip">Android</span><span class="chip">Firebase FCM</span></div></div>
+      <div><h4>Infraestructura</h4><div class="stack"><span class="chip">Docker</span><span class="chip">Traefik</span><span class="chip">Nginx</span><span class="chip">Linux / VPS</span><span class="chip">Git</span><span class="chip">Respaldos</span></div></div>
+      <div><h4>Método</h4><div class="stack"><span class="chip">Requerimientos</span><span class="chip">UML</span><span class="chip">Modelo E/R</span><span class="chip">Scrum</span><span class="chip">Kanban</span><span class="chip">Uso de herramientas de IA</span></div></div>
     </div>
   </div>
 </section>
 
 <section id="experiencia">
   <div class="wrap">
-    <div class="sec-head"><div><h2>Experiencia</h2><p>Del soporte y la infraestructura al desarrollo de software. Esa base es la que me permite llevar un sistema hasta el servidor y mantenerlo vivo.</p></div></div>
+    <div class="sec-head">
+      <div class="eyebrow">Trayectoria</div>
+      <h2>Experiencia</h2>
+      <p>Del soporte y la infraestructura al desarrollo de software. Esa base es la que me permite llevar un sistema hasta el servidor y mantenerlo funcionando.</p>
+    </div>
     <div class="xp">
-      <div class="xp-item"><div class="xp-when">2025 – Actualidad<br><span class="xp-tag">Independiente</span></div><div class="xp-what"><h3>Desarrollador Full Stack</h3><div class="co">Proyectos de software a la medida</div><p>Análisis, diseño, desarrollo y despliegue de plataformas para entidades de tránsito, atención ciudadana, contact center, comercio y eventos. Laravel, Flutter, APIs sobre Oracle y Docker en servidores Linux.</p></div></div>
-      <div class="xp-item"><div class="xp-when">Freelance<br><span class="xp-tag">Logística</span></div><div class="xp-what"><h3>Desarrollador Full Stack</h3><div class="co">SLC · Soluciones y Logísticas Confiables</div><p>Sistema de tránsito aduanero internacional (CPIC, MCI, DTAI), nube documental con app de escritorio, control de ingreso y horario de agentes, y sitio web corporativo. Despliegue y respaldos en producción.</p></div></div>
-      <div class="xp-item"><div class="xp-when">2 años · Remoto</div><div class="xp-what"><h3>Desarrollador Web</h3><div class="co">GETS · Grupo Empresarial Tecnológico Simbiótica</div><p>Desarrollo WordPress, administración de servidores VPS, hosting y dominios, migración de sitios, SEO, Google Analytics, copias de seguridad y apps móviles con AppHive.</p></div></div>
-      <div class="xp-item"><div class="xp-when">3 años · Remoto</div><div class="xp-what"><h3>Desarrollador Web</h3><div class="co">Neuro Sabanas SAS</div><p>Desarrollo y diseño web en WordPress, posicionamiento SEO, seguridad de datos y soporte a requerimientos del sector salud.</p></div></div>
-      <div class="xp-item"><div class="xp-when">1 año</div><div class="xp-what"><h3>Desarrollador de Software</h3><div class="co">Zeus Tecnología S.A.</div><p>Desarrollo en ASP.NET y C#, pruebas de aplicaciones web y de escritorio, bases de datos SQL Server y mantenimiento de servidores.</p></div></div>
-      <div class="xp-item"><div class="xp-when">2 años y medio</div><div class="xp-what"><h3>Coordinador de Sistemas</h3><div class="co">Namaste Beach Club</div><p>Infraestructura de redes, desarrollo de aplicativos internos, administración del sitio web, inventario tecnológico y mantenimiento de equipos.</p></div></div>
-      <div class="xp-item"><div class="xp-when">1 año</div><div class="xp-what"><h3>Técnico de Sistemas</h3><div class="co">IPS Delta Cartagena</div><p>Soporte presencial y remoto, redes, administración del sistema CCTV y desarrollo de la página web institucional.</p></div></div>
-      <div class="xp-item"><div class="xp-when">8 meses</div><div class="xp-what"><h3>Técnico de Redes</h3><div class="co">Grupo Heroica</div><p>Soporte de hardware y software, administración de switches Cisco y controladora Meraki.</p></div></div>
+      <div class="xp-sub">Desarrollo de software</div>
+      <div class="xp-row"><div class="xp-when">2025 – Actualidad<br><span class="tag">Independiente</span></div><div class="xp-what"><h3>Desarrollador Full Stack</h3><div class="co">Proyectos de software a la medida</div><p>Análisis, diseño, desarrollo y despliegue de plataformas para entidades de tránsito, atención ciudadana, contact center, comercio y eventos. Laravel, Flutter, APIs sobre Oracle y Docker en servidores Linux.</p></div></div>
+      <div class="xp-row"><div class="xp-when">2026 – Actualidad<br><span class="tag">Freelance</span></div><div class="xp-what"><h3>Desarrollador Full Stack</h3><div class="co">SLC · Soluciones y Logísticas Confiables</div><p>Sistema de tránsito aduanero internacional (CPIC, MCI, DTAI), nube documental con app de escritorio, control de ingreso y horario de agentes, y sitio web corporativo. Despliegues y respaldos en producción.</p></div></div>
+      <div class="xp-row"><div class="xp-when">2 años · Remoto</div><div class="xp-what"><h3>Desarrollador Web</h3><div class="co">GETS · Grupo Empresarial Tecnológico Simbiótica</div><p>Desarrollo WordPress, servidores VPS, hosting y dominios, migración de sitios, SEO, Google Analytics, copias de seguridad y apps móviles con AppHive.</p></div></div>
+      <div class="xp-row"><div class="xp-when">3 años · Remoto</div><div class="xp-what"><h3>Desarrollador Web</h3><div class="co">Neuro Sabanas SAS</div><p>Desarrollo y diseño web en WordPress, posicionamiento SEO, seguridad de datos y soporte a requerimientos.</p></div></div>
+      <div class="xp-row"><div class="xp-when">1 año</div><div class="xp-what"><h3>Desarrollador de Software</h3><div class="co">Zeus Tecnología S.A.</div><p>Desarrollo en ASP.NET y C#, pruebas de aplicaciones web y de escritorio, bases de datos SQL Server y mantenimiento de servidores.</p></div></div>
+      <div class="xp-sub">Infraestructura y soporte TI</div>
+      <div class="xp-row"><div class="xp-when">2 años y medio</div><div class="xp-what"><h3>Coordinador de Sistemas</h3><div class="co">Namaste Beach Club</div><p>Infraestructura de redes, desarrollo de aplicativos internos, administración del sitio web, inventario tecnológico y mantenimiento de equipos.</p></div></div>
+      <div class="xp-row"><div class="xp-when">1 año</div><div class="xp-what"><h3>Técnico de Sistemas</h3><div class="co">IPS Delta Cartagena</div><p>Soporte presencial y remoto, redes, administración del sistema CCTV y desarrollo de la página web institucional.</p></div></div>
+      <div class="xp-row"><div class="xp-when">8 meses</div><div class="xp-what"><h3>Técnico de Redes</h3><div class="co">Grupo Heroica</div><p>Soporte de hardware y software, administración de switches Cisco y controladora Meraki.</p></div></div>
+    </div>
+    <div class="edu">
+      <div><b>Ingeniería de Sistemas</b><span>Universidad Nacional Abierta y a Distancia (UNAD)</span><em>En curso</em></div>
+      <div><b>Tecnólogo en Análisis y Desarrollo de Sistemas de Información</b><span>SENA · Centro para la Industria Petroquímica</span><em>Certificado</em></div>
+      <div><b>Técnico en Sistemas</b><span>SENA</span><em>Certificado</em></div>
+      <div><b>Diplomado en IA aplicada a Centros de Relacionamiento con Clientes</b><span>Teleacción · 24 horas</span><em>Abril 2026</em></div>
     </div>
   </div>
 </section>
@@ -354,21 +489,28 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:13px}
   <div class="wrap">
     <div class="contact">
       <div>
-        <span class="label">Contacto</span>
-        <h2>¿Tienes un proceso que hoy vive en Excel o en papel?</h2>
-        <p style="color:var(--muted);margin:10px 0 0">Estudiante de Ingeniería de Sistemas (UNAD) y Tecnólogo en Análisis y Desarrollo de Sistemas de Información (SENA). Diplomado en Inteligencia Artificial aplicada a Centros de Relacionamiento con Clientes (Teleacción, 2026). Disponible para proyectos y vinculación como desarrollador full stack.</p>
+        <div class="eyebrow" style="color:var(--glow)">Contacto</div>
+        <h2 style="margin-top:10px">¿Tienes un proceso que hoy vive en Excel o en papel?</h2>
+        <p>Disponible para proyectos y para vincularme como desarrollador full stack.</p>
       </div>
       <div>
-        <div class="cline"><span id="c-mail">ivan.fernandez.14@hotmail.com</span><button class="btn" data-copy="c-mail">Copiar</button></div>
-        <div class="cline"><span id="c-tel">+57 324 746 0793</span><button class="btn" data-copy="c-tel">Copiar</button></div>
-        <div class="cline"><span id="c-gh">github.com/ferandsolutions1406</span><a class="btn" href="https://github.com/ferandsolutions1406" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">Abrir</a></div>
+        <div class="cline"><span id="c-mail">ivan.fernandez.14@hotmail.com</span><button data-copy="c-mail">Copiar</button></div>
+        <div class="cline"><span id="c-tel">+57 324 746 0793</span><button data-copy="c-tel">Copiar</button></div>
+        <div class="cline"><span>github.com/ferandsolutions1406</span><a href="https://github.com/ferandsolutions1406" target="_blank" rel="noopener">Abrir</a></div>
         <div class="cline"><span>Barranquilla, Colombia</span></div>
       </div>
     </div>
   </div>
 </section>
+</main>
+<footer><div class="wrap">Iván Andrés Fernández Andrade · Las capturas y demos usan datos de prueba; ninguna se conecta a un sistema real.</div></footer>
 
-<footer><div class="wrap">Iván Andrés Fernández Andrade · Las demos usan datos ficticios y no se conectan a ningún sistema real.</div></footer>
+<dialog class="lb" id="lb" aria-label="Captura ampliada">
+  <div class="lb-in"><img id="lb-img" alt=""><div class="lb-cap" id="lb-cap"></div></div>
+  <button class="lb-btn lb-x" id="lb-x" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lb-btn lb-l" id="lb-l" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="lb-btn lb-r" id="lb-r" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</dialog>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -380,9 +522,9 @@ let tt; function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("s
 let cleanups=[]; const every=(fn,ms)=>{const id=setInterval(fn,ms);cleanups.push(()=>clearInterval(id));return id};
 const later=(fn,ms)=>{const id=setTimeout(fn,ms);cleanups.push(()=>clearTimeout(id));return id};
 function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
+const SVG={l:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>',r:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>',zoom:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>'};
 
-const SECTORS={all:"Todos",pub:"Sector público",cc:"Contact center",log:"Logística",fin:"Finanzas y comercio"};
-
+/* ---------- demos interactivas (datos ficticios) ---------- */
 const P=[
 /* ---------------- PQRSD ---------------- */
 {id:"pqrsd",name:"NexusTrack PQRSD",tag:"Peticiones, quejas y reclamos con trazabilidad y control de plazos",sector:["pub"],client:"Entidades públicas y privadas",status:["ok","En producción"],
@@ -652,27 +794,158 @@ const P=[
  }}
 ];
 
-/* -------- ensamblado -------- */
-let current=null,filter="all";
-function select(id,focus){const p=P.find(x=>x.id===id)||P[0];cleanups.forEach(f=>f());cleanups=[];current=p.id;
- $$(".pbtn").forEach(b=>b.setAttribute("aria-selected",b.dataset.id===p.id));
- $("#s-meta").innerHTML=`<span class="pill ${p.status[0]}">${p.status[1]}</span><span>${esc(p.client)}</span>`;
- $("#s-title").textContent=p.name;$("#s-desc").textContent=p.desc;$("#s-hint").textContent=p.hint;
- $("#s-feats").innerHTML=p.feats.map(f=>`<li>${esc(f)}</li>`).join("");$("#s-stack").innerHTML=p.stack.map(s=>`<span class="chip">${esc(s)}</span>`).join("");
- const d=$("#demo"),n=d.cloneNode(false);d.replaceWith(n);p.render(n);
- try{history.replaceState(null,"","#"+p.id)}catch(e){}
- if(focus&&innerWidth<980)$("#stage").scrollIntoView({behavior:"smooth",block:"start"});}
-function list(){const ps=P.filter(p=>filter==="all"||p.sector.includes(filter));
- $("#plist").innerHTML=ps.map(p=>`<button class="pbtn" role="tab" data-id="${p.id}" aria-selected="${p.id===current}"><b>${esc(p.name)}</b><small>${esc(p.tag)}</small></button>`).join("");
- $("#filters").innerHTML=Object.entries(SECTORS).map(([k,v])=>`<button data-s="${k}" aria-pressed="${k===filter}">${v}</button>`).join("");
- if(!ps.some(p=>p.id===current))select(ps[0].id)}
-$("#plist").addEventListener("click",e=>{const b=e.target.closest(".pbtn");if(b)select(b.dataset.id,true)});
-$("#filters").addEventListener("click",e=>{const b=e.target.closest("[data-s]");if(b){filter=b.dataset.s;list()}});
-$$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const t=document.getElementById(b.dataset.copy);const txt=t.textContent;
- const sel=()=>{const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Texto seleccionado, cópialo con Ctrl+C")};
- try{navigator.clipboard.writeText(txt).then(()=>toast("Copiado: "+txt),sel)}catch(e){sel()}}));
-const start=(location.hash||"").slice(1);current=P.some(p=>p.id===start)?start:"pqrsd";list();select(current);
-</script>
 
+
+/* ---------- proyectos ---------- */
+const GIT={"days": {"2026-02-18": 3, "2026-02-19": 11, "2026-02-20": 7, "2026-02-21": 1, "2026-02-23": 2, "2026-02-24": 4, "2026-02-25": 1, "2026-03-05": 4, "2026-03-06": 6, "2026-03-07": 1, "2026-03-10": 1, "2026-03-12": 2, "2026-03-13": 1, "2026-03-17": 1, "2026-03-18": 3, "2026-03-19": 1, "2026-03-20": 2, "2026-03-21": 1, "2026-03-23": 2, "2026-03-24": 2, "2026-03-25": 12, "2026-03-31": 1, "2026-04-07": 6, "2026-04-08": 8, "2026-04-09": 3, "2026-04-13": 1, "2026-04-14": 9, "2026-04-15": 7, "2026-04-17": 3, "2026-04-18": 2, "2026-04-19": 1, "2026-04-20": 4, "2026-04-21": 9, "2026-04-22": 4, "2026-04-24": 7, "2026-04-25": 1, "2026-04-26": 5, "2026-04-27": 3, "2026-04-28": 9, "2026-04-29": 12, "2026-04-30": 1, "2026-05-02": 1, "2026-05-04": 9, "2026-05-05": 13, "2026-05-06": 5, "2026-05-07": 13, "2026-05-08": 5, "2026-05-09": 5, "2026-05-10": 2, "2026-05-11": 22, "2026-05-12": 12, "2026-05-13": 6, "2026-05-14": 5, "2026-05-15": 6, "2026-05-19": 8, "2026-05-20": 2, "2026-05-21": 2, "2026-05-22": 8, "2026-05-25": 23, "2026-05-26": 7, "2026-05-27": 2, "2026-05-28": 57, "2026-05-29": 65, "2026-06-01": 72, "2026-06-02": 52, "2026-06-03": 16, "2026-06-04": 10, "2026-06-05": 11, "2026-06-06": 19, "2026-06-09": 31, "2026-06-10": 11, "2026-06-11": 61, "2026-06-12": 15, "2026-06-16": 5, "2026-06-17": 5, "2026-06-18": 26, "2026-06-19": 6, "2026-06-21": 1, "2026-07-01": 1, "2026-07-10": 2, "2026-07-13": 15, "2026-07-14": 1, "2026-07-15": 7, "2026-07-16": 5, "2026-07-17": 4, "2026-07-20": 1, "2026-07-21": 5, "2026-07-22": 8, "2026-07-23": 9, "2026-07-24": 21, "2026-07-25": 2, "2026-07-27": 2, "2026-07-28": 13, "2026-07-29": 31, "2026-07-30": 16, "2026-07-31": 6, "2026-08-03": 1, "2026-08-04": 12, "2026-08-05": 20, "2026-08-10": 7, "2026-08-11": 29, "2026-08-12": 7, "2026-08-13": 22, "2026-08-16": 1, "2026-08-18": 1, "2026-08-19": 2, "2026-08-21": 6, "2026-08-22": 3, "2026-08-24": 11, "2026-08-25": 2, "2026-08-27": 4, "2026-08-29": 10, "2026-08-30": 11, "2026-08-31": 8, "2026-09-01": 19, "2026-09-02": 4, "2026-09-03": 31, "2026-09-04": 24, "2026-09-07": 4, "2026-09-08": 10, "2026-09-09": 24, "2026-09-10": 5, "2026-09-11": 21, "2026-09-12": 2, "2026-09-14": 20, "2026-09-15": 23, "2026-09-16": 12, "2026-09-17": 16, "2026-09-18": 2, "2026-09-21": 14, "2026-09-22": 4, "2026-09-23": 12, "2026-09-24": 13, "2026-09-25": 8, "2026-09-28": 6, "2026-09-29": 18, "2026-09-30": 6, "2026-10-01": 45, "2026-10-02": 17, "2026-10-03": 7, "2026-10-05": 16, "2026-10-06": 8, "2026-10-07": 9, "2026-10-08": 11, "2026-10-09": 3, "2026-10-12": 6, "2026-10-14": 2, "2026-10-15": 4, "2026-10-16": 2, "2026-10-19": 13, "2026-10-20": 18, "2026-10-21": 19, "2026-10-22": 1}, "repos": [["nexustrack-pqrsd", 752], ["nexus-crm", 186], ["nexus-aduanero", 147], ["nexus-cloud", 107], ["nexus-metricas", 94], ["nexus-control", 74], ["nexus-finance", 53], ["tablero-logistico", 46], ["nexus-eventia", 37], ["nexus-archivo", 26], ["movit-turno", 20], ["portal-ctp", 13], ["portal-pagos", 4], ["pagina-slc", 3], ["demos-clientes", 3], ["fluxia-turnos", 2], ["api-consultas-ctp", 1]]};
+const S=(id,files)=>files.map(([f,c])=>({src:`img/g/${id}-${f}.webp`,th:`img/t/${id}-${f}.webp`,cap:c,tall:/movil|invitacion/.test(f)}));
+const PROJECTS=[
+ {id:"cloud",demo:"cloud",title:"Nexus Cloud · Cloud SLC",client:"SLC · Soluciones y Logísticas Confiables",badges:[["ok","En producción"],["acc","Autor principal"]],url:"cloud.slcsas.com",
+  desc:"Los archivos de la empresa en un solo lugar: carpetas con permisos por persona y grupo, versiones, papelera, enlaces públicos y soporte con tickets. La app de escritorio para Windows y macOS sincroniza una carpeta local y avisa en tiempo real quién tiene abierto cada archivo.",
+  points:["Bloqueo de archivos mientras alguien los edita desde el escritorio, con aviso en vivo por WebSockets.","App de escritorio en Flutter con autoactualización y sincronización por carpeta.","Multiempresa: cada cliente con su cuota de almacenamiento, usuarios, grupos y auditoría."],
+  stack:["Laravel 13","Reverb","Sanctum","Flutter","MariaDB","Docker"],
+  shots:S("cloud",[["01-panel","Panel de la empresa: archivos, carpetas, usuarios, equipos y actividad reciente"],["02-archivos","Explorador de carpetas con permisos y acciones por elemento"],["03-carpeta","Archivos bloqueados mientras otra persona los edita desde la app de escritorio"],["04-usuarios","Usuarios de la empresa y sus roles"],["05-equipos","Equipos con la app de escritorio, su versión y el último latido"],["06-actividad","Bitácora de actividad por archivo y usuario"]])},
+ {id:"aduana",demo:"aduana",title:"Sistema Aduanero",client:"SLC · Tránsito aduanero internacional",badges:[["ok","En producción"],["acc","Desarrollo full stack"]],url:"aduanero · /operaciones",
+  desc:"Cada operación de transporte internacional agrupa sus documentos oficiales: la Carta de Porte (CPIC), de uno a diez Manifiestos de Carga (MCI) y, si es tránsito, la Declaración de Tránsito Aduanero (DTAI). Cada documento pasa por validación y su consecutivo oficial se asigna al enviarlo, no al crearlo.",
+  points:["Flujo Borrador → En validación → Aprobado o Devuelto, con auditoría de cada cambio.","Maestros de conductores, vehículos, remolques, contenedores y lugares que alimentan los formularios.","Documentos oficiales en PDF y reportes exportables a Excel."],
+  stack:["Laravel 12","Bootstrap 5","Turbo","Snappy / wkhtmltopdf","FPDI","Laravel Excel"],
+  shots:S("aduana",[["01-dashboard","Dashboard operativo: operaciones, aprobación, SLA y tendencia por documento"],["02-operaciones","Operaciones con su estado de validación"],["03-operacion","Detalle de una operación con su CPIC y sus MCI"],["04-nueva","Nueva operación: CPIC, MCI o DTAI"],["05-aduanas","Importaciones (DO) del módulo de aduanas"],["06-flota","Flota con los datos que exige el Ministerio de Transporte"],["07-vehiculos","Vehículos y transportistas"],["08-reportes","Reporte general de operaciones exportable a Excel y PDF"]])},
+ {id:"control",demo:"control",title:"Nexus Control de Ingreso",client:"SLC · Control horario de agentes",badges:[["ok","En producción"],["acc","Autor principal"]],url:"control · /supervisor",
+  desc:"Cada agente marca su estado durante la jornada (disponible, descanso, almuerzo, capacitación) y el supervisor ve en vivo quién está conectado y quién incumple. Al llegar la hora de salida de la malla, el sistema cierra el día o aplica las horas extra preautorizadas.",
+  points:["Tablero en vivo con el tiempo de cada agente en su estado y alertas de SLA.","Cierre automático a la hora de la malla y horas extra autorizadas por el supervisor.","App de escritorio y API para detectar la señal del equipo y las desconexiones."],
+  stack:["Laravel","Reverb","Sanctum","Laravel Excel","DomPDF","Alpine.js"],
+  shots:S("control",[["01-dashboard","Dashboard operativo: conectados, estados, SLA y conexiones por hora"],["02-supervisor","Monitoreo en vivo del estado de cada agente"],["03-reportes","Reportes de adherencia y productividad"],["05-novedades","Gestión de novedades: permisos, incapacidades y salidas"],["06-mallas","Mallas horarias corporativas"],["07-usuarios","Usuarios con su última conexión y campaña"],["08-estados","Estados productivos y no productivos configurables"]])},
+ {id:"pqrsd",demo:"pqrsd",title:"NexusTrack PQRSD",client:"Atención ciudadana · Entidades públicas y privadas",badges:[["ok","En producción"],["acc","Autor principal"]],url:"nexustrack · /dashboard",
+  desc:"Plataforma para radicar y gestionar peticiones, quejas, reclamos, sugerencias y denuncias. El ciudadano radica y consulta desde un portal público; la entidad asigna, transfiere y responde dentro de los plazos de ley, con trazabilidad completa.",
+  points:["Plazos calculados en días hábiles según horarios y festivos de cada empresa.","Gestión documental: paso de expedientes a archivo central e histórico con tiempos de retención.","Multiempresa con roles, notificaciones por correo y SMS, y reportes en PDF y Excel."],
+  stack:["Laravel 12","Spatie Permission","Reverb","Twilio","DomPDF","Laravel Excel"],
+  shots:S("pqrsd",[["01-dashboard","Tablero general: tickets abiertos, en proceso, cerrados y vencimientos de SLA"],["02-tickets","Bandeja de tickets con filtros por estado, prioridad, SLA, canal y responsable"],["03-ticket","Detalle de un ticket: solicitante, trazabilidad, asignación, transferencia y reclasificación"],["04-gestion","Gestión documental: transferencia de expedientes a archivo central e histórico"],["05-horarios","Horarios laborales y días no hábiles que alimentan el cálculo de plazos"],["06-dependencias","Áreas, responsables y visibilidad en el portal público"],["07-portal-radicar","Portal ciudadano: radicación paso a paso"],["08-portal-consulta","Consulta del estado con número de ticket y contraseña"]])},
+ {id:"crm",demo:"crm",title:"Nexus CRM Contact Center",client:"Operación de contact center",badges:[["ok","En producción"],["acc","Desarrollo full stack"]],url:"crm · /dashboard",
+  desc:"CRM para la operación diaria de un contact center: gestiones inbound y outbound por campaña con códigos de actividad, gestiones programadas desde Excel, descansos y TMO, cargas masivas de SMS, correo y llamadas, y tablero con mapa de calor.",
+  points:["Integrador de cargas masivas procesado en colas, sin bloquear al agente.","Probado con una copia de 487.000 gestiones en pruebas de carga.","Reportes de gestiones, descansos, calidad y telefonía en Excel y PDF."],
+  stack:["Laravel 13","Sanctum","Spatie Permission","PhpSpreadsheet","DomPDF","Playwright"],
+  shots:S("crm",[["01-dashboard","Dashboard de la operación: gestiones, TMO, finalización y reincidencia"],["03-personas","Base de ciudadanos con autorización de tratamiento de datos"],["04-campanias","Campañas con sus códigos de actividad"],["05-reportes","Reportes y métricas de gestiones inbound y outbound"]])},
+ {id:"metricas",demo:"metricas",title:"Nexus Métricas",client:"BI de contact center",badges:[["ok","En producción"],["acc","Co-autor"]],url:"metricas · /executive/dashboard",
+  desc:"Plataforma de inteligencia de negocio que reúne los indicadores de gerencia, comercial, experiencia del cliente, operaciones e infraestructura, con pipeline comercial en tablero Kanban y salida a Power BI.",
+  points:["Pipeline comercial con arrastrar y soltar por etapa.","Disponibilidad de canales y servidores con semáforo por umbral.","Personalización completa del acceso y la plataforma con vista previa en vivo."],
+  stack:["Laravel","Livewire","ApexCharts","Spatie Permission","Laravel Excel","Power BI"],
+  shots:S("metricas",[["01-ejecutivo","Gerencia ejecutiva: presupuesto frente a real"],["02-comercial","Dashboard comercial del pipeline"],["03-pipeline","Pipeline comercial en tablero Kanban"],["06-infraestructura","Disponibilidad de infraestructura y uso de recursos"],["08-personalizacion","Personalización del acceso y la plataforma con vista previa"]])},
+ {id:"turnos",demo:"turnos",title:"Mov_IT Turno",client:"Turnos y citas para atención al ciudadano",badges:[["ok","En producción"],["acc","Desarrollo full stack"]],url:"turno · /inicio",
+  desc:"Kiosko de autogestión donde el ciudadano saca su turno, panel por ventanilla para llamar y atender, y pantalla pública que anuncia el llamado con sonido. Incluye agendamiento de citas en línea con cupos, horarios y festivos.",
+  points:["Turnos preferenciales que pasan primero en la cola.","Pantallas por sede con video, banners y mensajes animados.","Perfiles con permisos por módulo y personalización de marca."],
+  stack:["Laravel 13","Alpine.js","Tailwind v4","Turbo","SortableJS","QR"],
+  shots:S("fluxia",[["01-inicio","Inicio del gestor: citas y turnos del día, sedes y ventanillas"],["02-citas","Listado de citas agendadas por sede y trámite"],["07-agendar","Agendamiento público de citas en cuatro pasos"],["08-kiosko","Turnero de autogestión para el ciudadano"],["03-atencion","Ventanillas disponibles para atención"],["04-sedes","Sedes con sus trámites y visibilidad"],["05-tramites","Catálogo de trámites por tipo"],["06-personalizacion","Personalización de marca con vista previa en vivo"],["09-visualizador","Pantallas visualizadoras por sede"]])},
+ {id:"archivo",demo:"archivo",title:"Nexus Archivo · Patios y Grúas",client:"Expediente digital de tránsito",badges:[["acc","En desarrollo"],["acc","Autor principal"]],url:"archivo · /tablero",
+  desc:"Los documentos se cargan e indexan por placa e identificación, se guardan inmutables con su huella SHA-256 y cada acción queda en una bitácora encadenada, donde cada registro incluye la huella del anterior. Si alguien altera un registro, la cadena lo delata.",
+  points:["Búsqueda por placa, cédula, número de comparendo, IPAT o acuerdo de pago.","Tipos documentales con tiempos de retención y paso automático al histórico.","Matriz de permisos por rol y visor seguro con marca de agua."],
+  stack:["Laravel 13","SHA-256","Flysystem S3","Spatie Permission","QR","Power BI"],
+  shots:S("archivo",[["02-tablero","Tablero de documentos, expedientes y consultas"],["03-buscar","Búsqueda por placa, identificación o número de documento"],["04-carga","Carga e indexación con reconocimiento del tipo de documento"],["05-auditoria","Auditoría encadenada con verificación de integridad"],["06-tipos","Tipos documentales y tiempos de retención"],["07-roles","Matriz de permisos por rol"],["08-personalizacion","Personalización de marca y pantallas de acceso"]])},
+ {id:"pagos",demo:"pagos",title:"Portal de Pagos de Multas",client:"Organismo de tránsito · Zona virtual",badges:[["ok","En producción"],["warn","Mantenimiento y corrección"]],url:"zonavirtual · /home-public",
+  desc:"Zona virtual donde el ciudadano consulta su estado de cuenta por cédula o placa y paga sus comparendos en línea. Se conecta a una API propia que lee el sistema de tránsito en Oracle. Corregí en producción una falla que mostraba como pagadas multas que no lo estaban.",
+  points:["Diagnóstico de la falla con un simulador de la API y copia de la base, sin tocar producción.","API REST de solo lectura sobre Oracle (OCI8).","Despliegue con respaldo y reversión documentada."],
+  stack:["Laravel 10","Oracle OCI8","API REST","Livewire Tables","Guzzle"],
+  shots:S("pagos",[["01-inicio","Consulta pública de estado de cuenta por cédula o placa"],["02-ingreso","Ingreso a la zona virtual"]])},
+ {id:"finance",demo:"finance",title:"Nexus Finance",client:"Venta de celulares a crédito",badges:[["warn","MVP"],["acc","Autor principal"]],url:"finance · /admin/dashboard",
+  desc:"Plataforma para comercios que venden celulares a crédito: registra clientes y equipos, genera el plan de cuotas, controla la mora y, cuando corresponde, restringe el equipo Android a distancia. El desbloqueo se hace con un código que emite el servidor.",
+  points:["Plan de cuotas automático con intereses, días de gracia y bloqueo tras mora.","Comandos al equipo por Firebase Cloud Messaging y aprovisionamiento por QR.","Multiempresa con auditoría de cada operación."],
+  stack:["Laravel","Firebase FCM","Android","Flutter","Chart.js","Sanctum"],
+  shots:S("finance",[["01-dashboard","Dashboard: cartera, recaudo, equipos activos y bloqueados"],["02-creditos","Créditos con su estado y plan de cuotas"],["03-credito","Detalle de crédito: cuotas, pagos y saldo"],["04-equipos","Dispositivos Android administrados con su estado"],["06-clientes","Clientes del comercio"],["08-aprovisionamiento","Aprovisionamiento del equipo por código QR"]])},
+ {id:"eventia",demo:"eventia",title:"Nexus Eventia",client:"Invitaciones digitales",badges:[["ok","En producción"],["acc","Autor principal"]],url:"eventia · /dashboard",
+  desc:"El organizador crea el evento, elige uno de 20 diseños, registra a sus invitados con sus cupos y comparte por WhatsApp un enlace personal. Cada invitado abre su sobre, confirma, pide cupos adicionales o descarga su invitación, y todo queda en el panel con estadísticas.",
+  points:["Invitación personal con sobre animado, cuenta regresiva, mapa y QR.","Vista previa en celular, portátil y pantalla grande antes de compartir.","Validación de cupos adicionales y registros de personas que no estaban en la lista."],
+  stack:["Laravel","Tailwind v4","QR","DomPDF","PhpSpreadsheet"],
+  shots:S("eventia",[["01-dashboard","Panel del organizador: eventos, invitados y respuestas recientes"],["07-invitacion-boda","Invitación personal de boda abierta en el celular"],["02-evento","Resumen del evento con estadísticas y enlace para compartir"],["03-invitados","Invitados con cupos, estado y validación de cupos adicionales"],["08-invitacion-infantil","Invitación infantil con su tema propio"],["06-dispositivos","Vista previa de la invitación en distintos dispositivos"],["09-pagina-evento","Página pública del evento para buscar la invitación o registrarse"]])},
+ {id:"tablero",demo:"tablero",title:"Tablero Logístico",client:"Organismo de tránsito · Logística",badges:[["ok","En producción"],["acc","Autor principal"]],url:"",
+  desc:"Tablero para el área de logística de un organismo de tránsito: traslados de cuenta de vehículos entre ciudades, planillas de mensajería, impresión de placas por lotes y auditoría de cada movimiento, con filtros y exportación a Excel.",
+  points:["Historial de contacto y resultado por traslado.","Lotes de impresión y auditoría de placas.","Festivos y horarios de recorrido para planear entregas."],
+  stack:["Laravel","Tailwind v4","PhpSpreadsheet","MySQL 8","Docker"],shots:[]},
+];
+const PORTALS=[
+ {title:"Portal Consorcio Tránsito Palmira",kicker:"consorcioctp.com",link:"https://consorcioctp.com",desc:"Reemplacé el WordPress del organismo por un portal y un CMS propios. El equipo publica noticias, trámites, tarifas y formatos con un editor visual, y el sitio sirve imágenes optimizadas para cada pantalla. Incluye un migrador automático desde WordPress.",
+  stack:["Laravel 13","TipTap","WebP","Turbo","Tailwind v4"],shots:S("ctp",[["01-inicio","Portada del portal institucional"],["02-tramites","Trámites para vehículos con buscador"],["03-tarifas","Tarifas vigentes con filtros"],["06-movil","Versión móvil de la portada"]])},
+ {title:"Sitio web de SLC",kicker:"Soluciones y Logísticas Confiables",link:"",desc:"Sitio corporativo con panel de administración para la empresa de logística, con servicios, alianzas y formulario de cotización, más la página de mantenimiento que se muestra durante los despliegues.",
+  stack:["Laravel","Tailwind","Alpine.js"],shots:S("slc",[["01-inicio","Portada del sitio corporativo"]])},
+];
+
+/* ---------- render ---------- */
+const DEMOS=Object.fromEntries(P.map(p=>[p.id,p]));
+let lbList=[],lbIdx=0;
+function openLB(list,i){lbList=list;lbIdx=i;showLB();const d=$("#lb");if(!d.open)d.showModal()}
+function showLB(){const s=lbList[lbIdx];$("#lb-img").src=s.src;$("#lb-img").alt=s.cap;$("#lb-cap").innerHTML=`<b>${lbIdx+1}/${lbList.length}</b>${esc(s.cap)}`;$("#lb-l").hidden=$("#lb-r").hidden=lbList.length<2}
+$("#lb-x").onclick=()=>$("#lb").close();
+$("#lb-l").onclick=()=>{lbIdx=(lbIdx-1+lbList.length)%lbList.length;showLB()};
+$("#lb-r").onclick=()=>{lbIdx=(lbIdx+1)%lbList.length;showLB()};
+$("#lb").addEventListener("click",e=>{if(e.target.id==="lb")$("#lb").close()});
+document.addEventListener("keydown",e=>{if(!$("#lb").open)return;if(e.key==="ArrowLeft")$("#lb-l").click();if(e.key==="ArrowRight")$("#lb-r").click()});
+
+function projectHTML(p){
+  const hasShots=p.shots.length>0;
+  return `<article class="proj" id="${p.id}">
+   <div>
+    <div class="badges">${p.badges.map(([c,t])=>`<span class="badge ${c}">${t}</span>`).join("")}</div>
+    <h3>${esc(p.title)}</h3><div class="client">${esc(p.client)}</div>
+    <p class="desc">${esc(p.desc)}</p>
+    <ul class="points">${p.points.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="stack">${p.stack.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div>
+   </div>
+   <div class="viewer">
+    <div class="tabs" role="tablist">${hasShots?`<button role="tab" aria-selected="true" data-v="shots">Capturas reales</button>`:""}<button role="tab" aria-selected="${!hasShots}" data-v="demo">Demo interactiva</button></div>
+    ${hasShots?`<div class="pane-shots">
+      <div class="vmeta">Capturas reales · datos de prueba · ${p.shots.length} pantallas</div>
+      <div class="frame"><div class="chrome"><i></i><i></i><i></i><span>${esc(p.url)}</span><button data-zoom>${SVG.zoom} Ampliar</button></div>
+        <div class="shot"><img loading="lazy" decoding="async" alt=""></div>
+        ${p.shots.length>1?`<button class="arrow l" aria-label="Anterior" data-step="-1">${SVG.l}</button><button class="arrow r" aria-label="Siguiente" data-step="1">${SVG.r}</button>`:""}
+      </div>
+      <div class="cap"><b></b><span></span></div>
+      <div class="thumbs">${p.shots.map((s,i)=>`<button data-i="${i}" aria-label="Captura ${i+1}: ${esc(s.cap)}"><img loading="lazy" src="${s.th}" alt=""></button>`).join("")}</div>
+    </div>`:""}
+    <div class="pane-demo" ${hasShots?"hidden":""}>
+      <div class="vmeta">Réplica funcional con datos ficticios</div>
+      <div class="demo-box"><div class="demo-bar"><span>Demo interactiva</span><span class="mono">${esc(DEMOS[p.demo].hint)}</span></div><div class="demo"></div></div>
+    </div>
+   </div></article>`;
+}
+function wire(el,p){
+  let i=0;const show=k=>{i=(k+p.shots.length)%p.shots.length;const s=p.shots[i],img=$(".shot img",el);img.src=s.src;img.alt=s.cap;$(".shot",el).classList.toggle("tall",s.tall);
+    $(".cap b",el).textContent=`${i+1}/${p.shots.length}`;$(".cap span",el).textContent=s.cap;
+    $$(".thumbs button",el).forEach((b,j)=>b.setAttribute("aria-current",j===i));};
+  if(p.shots.length){show(0);
+    el.addEventListener("click",e=>{const t=e.target.closest("[data-i],[data-step],[data-zoom],.shot");if(!t||!el.contains(t))return;
+      if(t.dataset.i!==undefined){show(+t.dataset.i);const b=t;b.parentElement.scrollTo({left:b.offsetLeft-b.parentElement.offsetLeft-40,behavior:"smooth"})}
+      else if(t.dataset.step)show(i+ +t.dataset.step);else openLB(p.shots,i)});}
+  const demoEl=()=>$(".demo",el);
+  const runDemo=()=>{cleanups.forEach(f=>f());cleanups=[];$$(".demo").forEach(d=>{if(d!==demoEl())d.innerHTML='<p class="demo-hint">Abre la pestaña de nuevo para reiniciar la demo.</p>'});
+    const d=demoEl(),n=d.cloneNode(false);d.replaceWith(n);DEMOS[p.demo].render(n)};
+  $$(".tabs button",el).forEach(b=>b.onclick=()=>{$$(".tabs button",el).forEach(x=>x.setAttribute("aria-selected",x===b));
+    const v=b.dataset.v;if($(".pane-shots",el))$(".pane-shots",el).hidden=v!=="shots";$(".pane-demo",el).hidden=v!=="demo";if(v==="demo")runDemo()});
+  if(!p.shots.length){const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();runDemo()}},{rootMargin:"200px"});io.observe(el)}
+}
+$("#projects").innerHTML=PROJECTS.map(projectHTML).join("");
+PROJECTS.forEach(p=>wire($("#"+p.id),p));
+$("#jump").innerHTML=PROJECTS.map(p=>`<a href="#${p.id}">${esc(p.title.split(" · ")[0])}</a>`).join("")+`<a href="#portales">Portales web</a>`;
+$("#portals").innerHTML=PORTALS.map((p,k)=>`<article class="portal"><div class="pimg" data-p="${k}" data-i="0"><img loading="lazy" src="${p.shots[0].src}" alt="${esc(p.shots[0].cap)}"></div>
+  <div class="pbody"><span class="eyebrow">${p.link?`<a href="${p.link}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${esc(p.kicker)} ↗</a>`:esc(p.kicker)}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
+  <div class="stack" style="margin-top:6px">${p.stack.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div>
+  ${p.shots.length>1?`<div class="more">${p.shots.map((s,i)=>`<button data-p="${k}" data-i="${i}" aria-label="${esc(s.cap)}"><img loading="lazy" src="${s.th}" alt=""></button>`).join("")}</div>`:""}</div></article>`).join("");
+$("#portals").addEventListener("click",e=>{const t=e.target.closest("[data-p]");if(t)openLB(PORTALS[+t.dataset.p].shots,+t.dataset.i)});
+
+/* ---------- actividad git ---------- */
+(function(){const days=GIT.days,start=new Date("2026-02-16T00:00:00"),end=new Date("2026-10-25T00:00:00");
+  const max=Math.max(...Object.values(days));const lvl=n=>!n?0:n<=Math.ceil(max*.12)?1:n<=Math.ceil(max*.3)?2:n<=Math.ceil(max*.55)?3:4;
+  const M=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];let html="",d=new Date(start),lastM=-1;
+  while(d<end){const m=d.getMonth();html+=`<em>${m!==lastM&&d.getDate()<=7?M[m]:""}</em>`;if(m!==lastM&&d.getDate()<=7)lastM=m;
+    for(let k=0;k<7;k++){const key=d.toISOString().slice(0,10),n=days[key]||0,fut=d>new Date();html+=`<i data-l="${fut?0:lvl(n)}" data-d="${key}" data-n="${n}" ${fut?'style="opacity:.35"':""}></i>`;d.setDate(d.getDate()+1)}}
+  $("#heat").innerHTML=html;$("#git-range").textContent="feb → oct";
+  $("#heat").addEventListener("mouseover",e=>{const t=e.target.closest("i[data-d]");if(!t)return;const [y,mo,da]=t.dataset.d.split("-");$("#heat-tip").textContent=`${+da} ${M[+mo-1]} · ${t.dataset.n} commit${t.dataset.n==="1"?"":"s"}`});
+  $("#repos").innerHTML=GIT.repos.slice(0,10).map(([n,c])=>`<span class="chip">${esc(n)} · <b>${c}</b></span>`).join("");
+})();
+
+/* ---------- tema y copiar ---------- */
+(function(){const r=document.documentElement;let t=null;try{t=localStorage.getItem("tema")}catch(e){}if(t)r.dataset.theme=t;
+  $("#theme").onclick=()=>{const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";try{localStorage.setItem("tema",r.dataset.theme)}catch(e){}}})();
+$$("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const el=document.getElementById(b.dataset.copy),txt=el.textContent;
+  const sel=()=>{const rg=document.createRange();rg.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(rg);toast("Texto seleccionado: cópialo con Ctrl+C")};
+  try{navigator.clipboard.writeText(txt).then(()=>toast("Copiado: "+txt),sel)}catch(e){sel()}}));
+</script>
 </body>
 </html>
